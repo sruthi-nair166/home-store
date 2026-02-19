@@ -8,6 +8,11 @@ function Root() {
       <header>
         <NavBar />
       </header>
+
+      <main>
+        <Outlet />
+      </main>
+
       <footer>
         <Footer />
       </footer>

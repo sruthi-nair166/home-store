@@ -6,8 +6,8 @@ import Logo from "../assets/Meubel House_Logos-05.png";
 
 function NavBar() {
   return (
-    <>
-      <nav className="flex justify-between items-center px-12 py-6">
+    <div className="fixed">
+      <nav className="flex justify-between items-center px-12 py-6 w-screen bg-white">
         <div className="flex items-center gap-1.5">
           <img src={Logo} alt="" />
           <a href="" className="text-4xl font-bold font-logo">
@@ -45,7 +45,7 @@ function NavBar() {
           <AiOutlineShoppingCart className="text-xl" />
         </div>
       </nav>
-    </>
+    </div>
   );
 }
 
