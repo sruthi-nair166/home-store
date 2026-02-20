@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
   return (
     <div className="border-t-2 pt-12 px-24">
@@ -14,24 +16,24 @@ function Footer() {
             <h3 className="font-medium text-slate-400 mb-12">Links</h3>
             <ul className="flex flex-col gap-12">
               <li>
-                <a href="" className="font-medium">
+                <Link to="/" className="font-medium">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="" className="font-medium">
+                <Link to="/shop" className="font-medium">
                   Shop
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="" className="font-medium">
+                <Link to="/" className="font-medium">
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="" className="font-medium">
+                <Link to="/contact" className="font-medium">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

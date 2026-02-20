@@ -6,6 +6,9 @@ export default {
       fontFamily: {
         logo: ["Montserrat", "sans"],
       },
+      colors: {
+        wheat: "#FAF3EA",
+      },
     },
   },
   plugins: [],

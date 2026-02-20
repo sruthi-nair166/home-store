@@ -3,38 +3,39 @@ import { IoSearchOutline } from "react-icons/io5";
 import { GoHeart } from "react-icons/go";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Logo from "../assets/Meubel House_Logos-05.png";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   return (
-    <div className="fixed">
+    <div className="fixed top-0 left-0 z-20">
       <nav className="flex justify-between items-center px-12 py-6 w-screen bg-white">
         <div className="flex items-center gap-1.5">
           <img src={Logo} alt="" />
-          <a href="" className="text-4xl font-bold font-logo">
+          <Link to="/" className="text-4xl font-bold font-logo">
             Furniro
-          </a>
+          </Link>
         </div>
 
         <ul className="flex gap-10">
           <li>
-            <a href="" className="font-medium">
+            <Link to="/" className="font-medium">
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="" className="font-medium">
+            <Link to="/shop" className="font-medium">
               Shop
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="" className="font-medium">
+            <Link to="/" className="font-medium">
               About
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="" className="font-medium">
+            <Link to="/contact" className="font-medium">
               Contact
-            </a>
+            </Link>
           </li>
         </ul>
 
