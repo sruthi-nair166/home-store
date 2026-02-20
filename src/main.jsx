@@ -4,8 +4,8 @@ import { RouterProvider } from "react-router/dom";
 import "./index.css";
 import Root from "./routes/Root";
 import Home from "./components/Home";
-import ShopBg from "./components/ShopBg";
 import Shop from "./components/Shop";
+import Contact from "./components/Contact";
 
 const router = createBrowserRouter([
   {
@@ -13,10 +13,8 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       { index: true, element: <Home /> },
-      {
-        element: <ShopBg />,
-        children: [{ path: "shop", element: <Shop /> }],
-      },
+      { path: "shop", element: <Shop /> },
+      { path: "contact", element: <Contact /> },
     ],
   },
 ]);

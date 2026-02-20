@@ -135,7 +135,7 @@ function Home() {
           </div>
         </div>
 
-        <button className="border-2 text-yellow-600 font-semibold border-yellow-600 px-16 py-3 mt-10 mb-14">
+        <button className="border-2 text-dark font-semibold border-dark px-16 py-3 mt-10 mb-14">
           Show More
         </button>
       </section>

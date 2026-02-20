@@ -1,28 +1,16 @@
 import { Link } from "react-router-dom";
 import filter from "../assets/system-uicons_filtering.png";
 import product1 from "../assets/Images.png";
-import { GrTrophy } from "react-icons/gr";
-import { BsPatchCheck } from "react-icons/bs";
-import { LiaShippingFastSolid } from "react-icons/lia";
-import { RiCustomerService2Line } from "react-icons/ri";
+import ShopBgHero from "./ShopBgHero";
+import ShopBgFooter from "./ShopBgFooter";
 
 function Shop() {
   return (
     <>
-      <div className="absolute top-1/2 left-1/2">
-        <h1 className="text-5xl font-medium mb-2">Shop</h1>
-        <p className="flex justify-center items-center gap-1.5">
-          <Link to="/" className="font-medium">
-            Home
-          </Link>
-          <span className="font-medium">&gt;</span>
-          <span className="font-light">Shop</span>
-        </p>
-      </div>
-
+      <ShopBgHero title="Shop" />
       <div className="flex justify-between items-center bg-wheat px-24 py-6">
         <div className="flex items-center gap-6">
-          <div className="flex gap-2 border-e-2">
+          <div className="flex gap-2 border-e-2 border-slate-300">
             <img src={filter} className="h-[25px]" alt="" />
             <span className="text-xl me-6">Filter</span>
           </div>
@@ -232,44 +220,13 @@ function Shop() {
       </div>
 
       <div className="flex justify-center gap-6 mb-20">
-        <button className="text-xl bg-yellow-600 rounded-lg px-6 py-3">
-          1
-        </button>
+        <button className="text-xl bg-dark rounded-lg px-6 py-3">1</button>
         <button className="text-xl bg-wheat rounded-lg px-6 py-3">2</button>
         <button className="text-xl bg-wheat rounded-lg px-6 py-3">3</button>
         <button className="text-xl bg-wheat rounded-lg px-6 py-3">Next</button>
       </div>
 
-      <div className="flex justify-between p-24 bg-wheat">
-        <div className="flex items-center gap-5">
-          <GrTrophy className="text-6xl" />
-          <div>
-            <p className="text-2xl font-semibold mb-1">High Quality</p>
-            <p className="text-slate-400">crafted from top materials</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-5">
-          <BsPatchCheck className="text-6xl" />
-          <div>
-            <p className="text-2xl font-semibold mb-1">Warranty Protection</p>
-            <p className="text-slate-400">Over 2 years</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-5">
-          <LiaShippingFastSolid className="text-6xl" />
-          <div>
-            <p className="text-2xl font-semibold mb-1">Free Shipping</p>
-            <p className="text-slate-400">Order over 150</p>
-          </div>
-        </div>
-        <div className="flex items-center gap-5">
-          <RiCustomerService2Line className="text-6xl" />
-          <div>
-            <p className="text-2xl font-semibold mb-1">24 / 7 Support</p>
-            <p className="text-slate-400">Dedicated Support</p>
-          </div>
-        </div>
-      </div>
+      <ShopBgFooter />
     </>
   );
 }

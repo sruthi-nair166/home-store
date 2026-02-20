@@ -8,6 +8,7 @@ export default {
       },
       colors: {
         wheat: "#FAF3EA",
+        dark: "#B88E2F",
       },
     },
   },
