@@ -23,15 +23,15 @@ function Contact() {
             <FaLocationDot className="text-2xl mt-1" />
             <div>
               <h3 className="text-2xl font-medium">Address</h3>
-              <p>236 5th SE Avenue, New York NY10000, United States</p>
+              <p>24, Nagdevi Street, Mandvi, Mumbai, Maharashtra, 400003</p>
             </div>
           </div>
           <div className="flex gap-6">
             <FaPhoneAlt className="text-2xl mt-2" />
             <div>
               <h3 className="text-2xl font-medium">Phone</h3>
-              <p>Mobile: +(84) 546-6789</p>
-              <p>Hotline: +(84) 456-6789</p>
+              <p>Mobile: +(91) 2762774410</p>
+              <p>Hotline: +(91) 5928685957</p>
             </div>
           </div>
           <div className="flex gap-6">

@@ -42,8 +42,12 @@ function NavBar() {
         <div className="flex gap-10">
           <IoPersonOutline className="text-xl" />
           <IoSearchOutline className="text-xl" />
-          <GoHeart className="text-xl" />
-          <AiOutlineShoppingCart className="text-xl" />
+          <Link to="/wishlist">
+            <GoHeart className="text-xl" />
+          </Link>
+          <Link to="/cart">
+            <AiOutlineShoppingCart className="text-xl" />
+          </Link>
         </div>
       </nav>
     </div>

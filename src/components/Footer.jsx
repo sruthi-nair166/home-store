@@ -7,7 +7,7 @@ function Footer() {
         <div>
           <h2 className="text-2xl font-bold font-logo mb-12">Furniro</h2>
           <p className="text-slate-400">
-            400 University Drive Suite 200 Coral Gables, FL 33134 USA
+            24, Nagdevi Street, Mandvi, Mumbai, Maharashtra, 400003
           </p>
         </div>
 

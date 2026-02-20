@@ -6,6 +6,8 @@ import Root from "./routes/Root";
 import Home from "./components/Home";
 import Shop from "./components/Shop";
 import Contact from "./components/Contact";
+import Cart from "./components/Cart";
+import Wishlist from "./components/Wishlist";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,8 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "shop", element: <Shop /> },
       { path: "contact", element: <Contact /> },
+      { path: "cart", element: <Cart /> },
+      { path: "wishlist", element: <Wishlist /> },
     ],
   },
 ]);
