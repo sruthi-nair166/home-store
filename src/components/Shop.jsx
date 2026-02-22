@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import filter from "../assets/system-uicons_filtering.png";
-import product1 from "../assets/Images.png";
 import ShopBgHero from "./ShopBgHero";
 import ShopBgFooter from "./ShopBgFooter";
+import products from "../utils/data.js";
 
 function Shop() {
   return (
@@ -14,7 +14,7 @@ function Shop() {
             <img src={filter} className="h-[25px]" alt="" />
             <span className="text-xl me-6">Filter</span>
           </div>
-          <p>Showing 1–16 of 32 results</p>
+          <p>Showing 1–16 of {products.length} results</p>
         </div>
 
         <div className="flex items-center gap-4">
@@ -26,204 +26,45 @@ function Shop() {
       </div>
 
       <div className="grid grid-cols-4 gap-10 mx-24 my-16">
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-slate-100 max-w-[285px]">
-          <img src={product1} alt="" />
-          <div className="flex flex-col gap-2 mt-4 pb-6 mx-4">
-            <h3 className="text-2xl font-semibold">Product Name</h3>
-            <p className="text-slate-400">Stylish Cafe Chair</p>
-            <p className="flex justify-between">
-              <span className="text-xl font-semibold">Rp 2500.000</span>{" "}
-              <span className="text-slate-300 line-through">Rp 3500.000</span>
-            </p>
-          </div>
-        </div>
+        {products.map((product, i) => {
+          if (i < 16) {
+            return (
+              <div
+                key={`${product.id}-${product.title}`}
+                className="bg-slate-100 max-w-[285px]"
+              >
+                <img
+                  src={product.images[0]}
+                  className="h-[300px] w-full object-cover object-top"
+                  alt={product.title}
+                />
+                <div className="flex flex-col mt-4 pb-6 mx-4">
+                  <h3 className="text-2xl font-semibold mb-1">
+                    {product.title}
+                  </h3>
+                  <p className="text-slate-400 mb-4">{product.brand}</p>
+                  <p className="flex justify-between items-end">
+                    <span className="text-xl font-semibold">
+                      Rs{" "}
+                      {(
+                        product.price *
+                        (1 - product.discountPercentage / 100)
+                      ).toFixed(2)}
+                    </span>{" "}
+                    <span className="text-slate-300 line-through">
+                      Rs {product.price}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            );
+          }
+        })}
       </div>
 
-      <div className="flex justify-center gap-6 mb-20">
+      <div className="flex justify-center gap-4 mb-20">
         <button className="text-xl bg-dark rounded-lg px-6 py-3">1</button>
         <button className="text-xl bg-wheat rounded-lg px-6 py-3">2</button>
-        <button className="text-xl bg-wheat rounded-lg px-6 py-3">3</button>
-        <button className="text-xl bg-wheat rounded-lg px-6 py-3">Next</button>
       </div>
 
       <ShopBgFooter />
