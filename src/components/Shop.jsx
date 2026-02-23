@@ -61,9 +61,12 @@ function Shop() {
                        flex items-center justify-center z-10"
               >
                 <div className="flex flex-col gap-3">
-                  <button className="bg-white text-dark px-14 py-3 font-semibold">
+                  <Link
+                    to={`/products/${product.id}`}
+                    className="bg-white text-dark px-14 py-3 font-semibold"
+                  >
                     Add to Cart
-                  </button>
+                  </Link>
 
                   <button className="text-white font-medium px-6 py-2 flex items-center justify-center gap-2">
                     <span>
@@ -109,7 +112,7 @@ function Shop() {
         }).map((_, i) => (
           <button
             key={i}
-            className={`${i + 1 === currentPage ? "bg-dark" : "bg-wheat"} text-xl rounded-lg w-14 h-14`}
+            className={`${i + 1 === currentPage ? "bg-dark text-white" : "bg-wheat"} text-xl rounded-lg w-14 h-14`}
             onClick={() => setCurrentPage(i + 1)}
           >
             {i + 1}
