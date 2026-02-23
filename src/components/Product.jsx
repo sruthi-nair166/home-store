@@ -5,11 +5,23 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import products from "../utils/data.js";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../features/cart/cartSlice.js";
 
 function Product() {
   const { id } = useParams();
+  const cartItems = useSelector((state) => state.cart.value || []);
+  const dispatch = useDispatch();
 
   const currentProduct = products.find((product) => product.id === Number(id));
+
+  const existingItem = cartItems.find((item) => item.id === currentProduct.id);
+
+  const alreadyInCart = existingItem ? existingItem.quantity : 0;
+
+  const maxAllowed = currentProduct.minimumOrderQuantity;
+
+  const remaining = maxAllowed - alreadyInCart;
 
   if (!currentProduct) {
     return;
@@ -40,7 +52,7 @@ function Product() {
           <div className="flex flex-col gap-6">
             {currentProduct.images.map((image) => {
               return (
-                <button onClick={() => setCurrentImg(image)}>
+                <button key={image} onClick={() => setCurrentImg(image)}>
                   <img
                     src={image}
                     alt={currentProduct.title}
@@ -58,7 +70,7 @@ function Product() {
         </div>
 
         <div className="flex-1">
-          <h2 className="text-4xl mb-2">{currentProduct.title}</h2>
+          <h2 className="text-4xl mb-2 font-medium">{currentProduct.title}</h2>
           <p className="text-2xl text-slate-400 font-medium mb-4">
             Rs{" "}
             {(
@@ -107,7 +119,7 @@ function Product() {
               aria-label="Quantity"
               aria-valuenow={quantity}
               aria-valuemin={1}
-              aria-valuemax={currentProduct.stock}
+              aria-valuemax={currentProduct.minimumOrderQuantity}
               className="flex items-center justify-between gap-4 border-2 border-slate-400 rounded-md"
             >
               <button
@@ -122,20 +134,27 @@ function Product() {
               <button
                 aria-label="Increase quantity"
                 onClick={() =>
-                  setQuantity((prev) =>
-                    Math.min(prev + 1, currentProduct.stock),
-                  )
+                  setQuantity((prev) => Math.min(prev + 1, remaining))
                 }
-                disabled={quantity === currentProduct.stock}
+                disabled={quantity >= remaining}
                 className="disabled:text-slate-400 disabled:cursor-not-allowed"
               >
                 <GoPlus className="me-2" />
               </button>
             </div>
-            <button className="border-2 border-black rounded-lg px-10 py-3">
+            <button
+              className="border-2 border-black rounded-lg px-8 py-3 disabled:cursor-not-allowed"
+              onClick={() =>
+                dispatch(addToCart({ ...currentProduct, quantity }))
+              }
+              disabled={remaining <= 0}
+            >
               Add to Cart
             </button>
-            <button className="flex items-center gap-1 border-2 border-black rounded-lg px-10 py-3">
+            <button className="border-2 border-black rounded-lg px-8 py-3">
+              Add to Wishlist
+            </button>
+            <button className="flex items-center gap-1 border-2 border-black rounded-lg px-6 py-3">
               <span>
                 <GoPlus />
               </span>
@@ -165,7 +184,7 @@ function Product() {
 
         <div className="">
           {currentProduct.reviews.map((review) => (
-            <>
+            <div key={review.reviewerEmail}>
               <div className="flex mt-6">
                 <div className="mb-4">
                   <h4 className="text-xl font-medium">{review.reviewerName}</h4>
@@ -181,7 +200,7 @@ function Product() {
                 />
               </div>
               <p className="pb-8 border-b-2">{review.comment}</p>
-            </>
+            </div>
           ))}
         </div>
       </div>

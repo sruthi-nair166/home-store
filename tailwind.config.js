@@ -7,7 +7,7 @@ export default {
         logo: ["Montserrat", "sans"],
       },
       colors: {
-        wheat: "#FAF3EA",
+        wheat: "#f5e7d5",
         dark: "#B88E2F",
       },
     },
