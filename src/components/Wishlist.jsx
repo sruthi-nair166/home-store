@@ -1,11 +1,17 @@
 import ShopBgHero from "./ShopBgHero";
 import ShopBgFooter from "./ShopBgFooter";
-import product1 from "../assets/Mask group.png";
 import { GoHeart } from "react-icons/go";
 import { GoHeartFill } from "react-icons/go";
 import Tooltip from "@mui/material/Tooltip";
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromWishlist } from "../features/wishlist/wishlistSlice";
+import { addToCart } from "../features/cart/cartSlice.js";
+import { Link } from "react-router-dom";
 
 function Wishlist() {
+  const wishlistData = useSelector((state) => state.wishlist.value || []);
+  const dispatch = useDispatch();
+
   return (
     <>
       <ShopBgHero title="Wishlist" />
@@ -15,40 +21,70 @@ function Wishlist() {
           <tr className="bg-wheat ">
             <th className="font-medium py-4 px-6 text-left">Product</th>
             <th className="font-medium py-4 px-6 text-left">Price</th>
-            <th className="font-medium py-4 px-6 text-center">Quantity</th>
-            <th className="font-medium py-4 px-6 text-left">Subtotal</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="py-6">
-              <div className="flex items-center gap-2">
-                <img src={product1} className="bg-wheat rounded-lg" alt="" />
-                <p>Product Name</p>
-              </div>
-            </td>
-            <td className="p-6">Rs. 25,000.00</td>
-            <td className="p-6 text-center">
-              <span className="border-2 rounded-md px-4 py-2">1</span>
-            </td>
-            <td className="p-6">Rs. 25,000.00</td>
-            <td className="p-6">
-              <Tooltip title="Remove from Wishlist" arrow>
-                <button
-                  aria-label="Remove from Wishlist"
-                  className="inline-block align-middle group"
-                >
-                  <GoHeart className="text-dark text-xl hidden group-hover:inline" />
-                  <GoHeartFill className="text-dark text-xl group-hover:hidden" />
-                </button>
-              </Tooltip>
-            </td>
-            <td>
-              <button className="bg-dark text-white px-4 py-2 text-center">
-                Add to Cart
-              </button>
-            </td>
-          </tr>
+          {wishlistData.length === 0 ? (
+            <tr>
+              <td
+                colSpan={5}
+                className="text-center text-xl text-slate-400 py-6"
+              >
+                <p>No items added yet</p>
+              </td>
+            </tr>
+          ) : (
+            wishlistData.map((item) => (
+              <tr key={item.id} className="relative hover:bg-slate-100">
+                <td className="py-6">
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={item.images[0]}
+                      className="bg-wheat rounded-lg w-[100px] h-[100px] object-cover"
+                      alt={item.title}
+                    />
+                    <p>{item.title}</p>
+                  </div>
+                </td>
+                <td className="p-6">
+                  Rs.{" "}
+                  {(item.price * (1 - item.discountPercentage / 100)).toFixed(
+                    2,
+                  )}
+                </td>
+                <td className="p-6 text-center">
+                  <Tooltip title="Remove from Wishlist" arrow>
+                    <button
+                      onClick={() => dispatch(removeFromWishlist(item.id))}
+                      aria-label="Remove from Wishlist"
+                      className="inline-block align-middle group"
+                    >
+                      <GoHeart className="text-dark text-xl hidden group-hover:inline" />
+                      <GoHeartFill className="text-dark text-xl group-hover:hidden" />
+                    </button>
+                  </Tooltip>
+                </td>
+                <td className="ps-6 text-right">
+                  <button
+                    onClick={() =>
+                      dispatch(addToCart({ ...item, quantity: 1 }))
+                    }
+                    className="bg-dark text-white px-4 py-2"
+                  >
+                    Add to Cart
+                  </button>
+                </td>
+
+                <Link
+                  to={`/products/${item.id}`}
+                  className="absolute inset-0"
+                  aria-label={`View ${item.title}`}
+                />
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
 
