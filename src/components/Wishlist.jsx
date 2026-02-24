@@ -42,7 +42,7 @@ function Wishlist() {
                   <div className="flex items-center gap-2">
                     <img
                       src={item.images[0]}
-                      className="bg-wheat rounded-lg w-[100px] h-[100px] object-cover"
+                      className="bg-wheat rounded-lg w-[100px] h-[100px] object-cover object-center"
                       alt={item.title}
                     />
                     <p>{item.title}</p>
@@ -59,7 +59,7 @@ function Wishlist() {
                     <button
                       onClick={() => dispatch(removeFromWishlist(item.id))}
                       aria-label="Remove from Wishlist"
-                      className="inline-block align-middle group"
+                      className="inline-block align-middle group relative z-10 p-4"
                     >
                       <GoHeart className="text-dark text-xl hidden group-hover:inline" />
                       <GoHeartFill className="text-dark text-xl group-hover:hidden" />
@@ -71,7 +71,7 @@ function Wishlist() {
                     onClick={() =>
                       dispatch(addToCart({ ...item, quantity: 1 }))
                     }
-                    className="bg-dark text-white px-4 py-2"
+                    className="bg-dark text-white relative z-10 px-4 py-2"
                   >
                     Add to Cart
                   </button>

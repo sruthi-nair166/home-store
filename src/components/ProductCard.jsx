@@ -9,9 +9,25 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from "../features/wishlist/wishlistSlice";
+import { setColumn1 } from "../features/compare/compareSlice";
 
 function ProductCard({ product }) {
+  const wishlist = useSelector((state) => state.wishlist.value || []);
   const dispatch = useDispatch();
+
+  const isInWishlist = wishlist.find((item) => item.id === product.id);
+
+  const handleToggle = () => {
+    if (isInWishlist) {
+      dispatch(removeFromWishlist(product.id));
+    } else {
+      dispatch(addToWishlist({ ...product, quantity: 1 }));
+    }
+  };
+
+  const handleCompareClick = () => {
+    dispatch(setColumn1(product));
+  };
 
   return (
     <>
@@ -32,10 +48,13 @@ function ProductCard({ product }) {
             <button
               aria-label="Wishlist"
               className="inline-block align-middle group absolute top-5 right-5"
-              onClick={() => dispatch(addToWishlist(product))}
+              onClick={handleToggle}
             >
-              <GoHeart className="text-wheat text-xl" />
-              <GoHeartFill className="text-wheat text-xl hidden" />
+              {isInWishlist ? (
+                <GoHeartFill className="text-wheat text-xl" />
+              ) : (
+                <GoHeart className="text-wheat text-xl" />
+              )}
             </button>
           </Tooltip>
           <div className="flex flex-col gap-3">
@@ -48,6 +67,7 @@ function ProductCard({ product }) {
 
             <Link
               to="/comparison"
+              onClick={handleCompareClick}
               className="text-white font-medium px-6 py-2 flex items-center justify-center gap-2"
             >
               <span>

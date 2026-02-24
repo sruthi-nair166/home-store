@@ -7,10 +7,16 @@ import products from "../utils/data.js";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../features/cart/cartSlice.js";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../features/wishlist/wishlistSlice.js";
+import { setColumn1 } from "../features/compare/compareSlice";
 
 function Product() {
   const { id } = useParams();
   const cartItems = useSelector((state) => state.cart.value || []);
+  const wishlistItems = useSelector((state) => state.wishlist.value || []);
   const dispatch = useDispatch();
 
   const currentProduct = products.find((product) => product.id === Number(id));
@@ -26,6 +32,22 @@ function Product() {
   if (!currentProduct) {
     return;
   }
+
+  const isInWishlist = wishlistItems.find(
+    (item) => item.id === currentProduct.id,
+  );
+
+  const handleToggle = () => {
+    if (isInWishlist) {
+      dispatch(removeFromWishlist(currentProduct.id));
+    } else {
+      dispatch(addToWishlist({ ...currentProduct, quantity: 1 }));
+    }
+  };
+
+  const handleCompareClick = () => {
+    dispatch(setColumn1(currentProduct));
+  };
 
   const [size, setSize] = useState("XS");
   const [currentImg, setCurrentImg] = useState(currentProduct.images[0]);
@@ -151,15 +173,22 @@ function Product() {
             >
               Add to Cart
             </button>
-            <button className="border-2 border-black rounded-lg px-8 py-3">
-              Add to Wishlist
+            <button
+              onClick={handleToggle}
+              className="border-2 border-black rounded-lg px-8 py-3"
+            >
+              {isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
             </button>
-            <button className="flex items-center gap-1 border-2 border-black rounded-lg px-6 py-3">
+            <Link
+              to="/comparison"
+              onClick={handleCompareClick}
+              className="flex items-center gap-1 border-2 border-black rounded-lg px-6 py-3"
+            >
               <span>
                 <GoPlus />
               </span>
               <span>Compare</span>
-            </button>
+            </Link>
           </div>
 
           <div className="flex gap-10 border-t-2 pt-4">

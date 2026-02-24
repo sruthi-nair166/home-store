@@ -3,8 +3,8 @@ import ShopBgFooter from "./ShopBgFooter";
 import { AiFillDelete } from "react-icons/ai";
 import Tooltip from "@mui/material/Tooltip";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { removeFromCart } from "../features/cart/cartSlice";
+import { Link } from "react-router-dom";
 
 function Cart() {
   const cartData = useSelector((state) => state.cart.value || []);
@@ -97,7 +97,7 @@ function Cart() {
           </tbody>
         </table>
 
-        <div className="bg-wheat flex flex-col justify-between items-center gap-10 px-24 py-8">
+        <div className="bg-wheat flex flex-col items-center max-h-[340px] gap-10 px-24 pt-8 pb-10">
           <h2 className="text-3xl font-semibold">Cart Total</h2>
           <p className="flex justify-between w-full">
             <span className="font-medium">Subtotal</span>
@@ -111,7 +111,7 @@ function Cart() {
               Rs. {cartData.length === 0 ? 0 : cartTotal.toFixed(2)}
             </span>
           </p>
-          <button className="border-2 border-black rounded-lg px-10 py-3">
+          <button className="border-2 border-black rounded-lg px-16 py-3">
             Checkout
           </button>
         </div>
