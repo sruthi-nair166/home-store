@@ -5,6 +5,11 @@ import ShopBgFooter from "./ShopBgFooter";
 import products from "../utils/data.js";
 import ProductCard from "./ProductCard.jsx";
 import { IoCloseSharp } from "react-icons/io5";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import ListSubheader from "@mui/material/ListSubheader";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 function Shop() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -120,7 +125,28 @@ function Shop() {
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
 
-  const currentProducts = filteredProducts.slice(startIndex, endIndex);
+  const [sortOption, setSortOption] = useState("");
+  const [sortBy, setSortBy] = useState("");
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    const priceA = a.price * (1 - a.discountPercentage / 100);
+
+    switch (sortBy) {
+      case "Price: High to Low":
+        return b.price * (1 - b.discountPercentage / 100) - priceA;
+      case "Price: Low to High":
+        return priceA - b.price * (1 - b.discountPercentage / 100);
+      case "Rating: High to Low":
+        return b.rating - a.rating;
+
+      case "Rating: Low to High":
+        return a.rating - b.rating;
+      default:
+        return 0;
+    }
+  });
+
+  const currentProducts = sortedProducts.slice(startIndex, endIndex);
 
   const startDisplay = startIndex + 1;
   const endDisplay = Math.min(endIndex, filteredProducts.length);
@@ -145,9 +171,81 @@ function Shop() {
 
         <div className="flex items-center gap-4">
           <p className="text-xl">Sort By</p>
-          <button className="text-xl text-slate-400 bg-white px-12 py-3">
-            Default
-          </button>
+          <FormControl className="bg-white" sx={{ m: 1, width: 150 }}>
+            <InputLabel
+              sx={{
+                "&.Mui-focused": {
+                  color: "grey !important",
+                },
+              }}
+              id="grouped-select-label"
+              htmlFor="grouped-select"
+            >
+              {sortOption === "price"
+                ? "Price"
+                : sortOption === "rating"
+                  ? "Rating"
+                  : "Default"}
+            </InputLabel>
+            <Select
+              defaultValue=""
+              id="grouped-select"
+              label="Default"
+              SelectDisplayProps={{
+                "aria-labelledby": "grouped-select-label",
+              }}
+              sx={{
+                "& .MuiOutlinedInput-notchedOutline": {
+                  border: "none",
+                },
+                "&:hover .MuiOutlinedInput-notchedOutline": {
+                  border: "none",
+                },
+                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                  border: "none",
+                },
+              }}
+            >
+              <ListSubheader>Price</ListSubheader>
+              <MenuItem
+                onClick={() => {
+                  setSortOption("price");
+                  setSortBy("Price: High to Low");
+                }}
+                value="Price: High to Low"
+              >
+                High to Low
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setSortOption("price");
+                  setSortBy("Price: Low to High");
+                }}
+                value="Price: Low to High"
+              >
+                Low to High
+              </MenuItem>
+              <ListSubheader>Rating</ListSubheader>
+              <MenuItem
+                onClick={() => {
+                  setSortOption("rating");
+                  setSortBy("Rating: High to Low");
+                }}
+                value="Rating: High to Low"
+              >
+                High to Low
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setSortOption("rating");
+                  setSortBy("Rating: Low to High");
+                }}
+                value="Rating: Low to High"
+              >
+                Low to High
+              </MenuItem>
+            </Select>
+          </FormControl>
         </div>
       </div>
 
