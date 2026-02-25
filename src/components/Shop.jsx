@@ -1,33 +1,145 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import filter from "../assets/system-uicons_filtering.png";
 import ShopBgHero from "./ShopBgHero";
 import ShopBgFooter from "./ShopBgFooter";
 import products from "../utils/data.js";
 import ProductCard from "./ProductCard.jsx";
+import { IoCloseSharp } from "react-icons/io5";
 
 function Shop() {
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    categories: [],
+    brands: [],
+    priceRanges: [],
+  });
+
+  useEffect(() => {
+    if (isFilterOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isFilterOpen]);
+
+  const handleCategoryChange = (category) => {
+    setFilters((prev) => {
+      const alreadySelected = prev.categories.includes(category);
+
+      return {
+        ...prev,
+        categories: alreadySelected
+          ? prev.categories.filter((c) => c !== category)
+          : [...prev.categories, category],
+      };
+    });
+  };
+
+  const handleBrandChange = (brand) => {
+    setFilters((prev) => {
+      const alreadySelected = prev.brands.includes(brand);
+
+      return {
+        ...prev,
+        brands: alreadySelected
+          ? prev.brands.filter((b) => b !== brand)
+          : [...prev.brands, brand],
+      };
+    });
+  };
+
+  const handlePriceRangeChange = (price) => {
+    setFilters((prev) => {
+      const alreadySelected = prev.priceRanges.includes(price);
+
+      return {
+        ...prev,
+        priceRanges: alreadySelected
+          ? prev.priceRanges.filter((p) => p !== price)
+          : [...prev.priceRanges, price],
+      };
+    });
+  };
+
+  const filteredProducts = products.filter((product) => {
+    const categoryMatch =
+      filters.categories.length === 0 ||
+      filters.categories.includes(product.category);
+
+    const brandMatch =
+      filters.brands.length === 0 || filters.brands.includes(product.brand);
+
+    const priceMatch =
+      filters.priceRanges.length === 0 ||
+      filters.priceRanges.some((range) => {
+        const discountedPrice =
+          product.price * (1 - product.discountPercentage / 100);
+
+        if (range === "above-5000") return discountedPrice > 5000;
+
+        if (range === "3000-5000")
+          return discountedPrice >= 3000 && discountedPrice <= 5000;
+
+        if (range === "1000-2999")
+          return discountedPrice >= 1000 && discountedPrice < 3000;
+
+        if (range === "500-999")
+          return discountedPrice >= 500 && discountedPrice < 1000;
+
+        if (range === "100-499")
+          return discountedPrice >= 100 && discountedPrice < 500;
+
+        if (range === "below-100") return discountedPrice < 100;
+
+        return false;
+      });
+
+    return categoryMatch && brandMatch && priceMatch;
+  });
+
+  const categories = [...new Set(products.map((p) => p.category))];
+
+  const brands = [...new Set(products.map((p) => p.brand))];
+
+  const priceRanges = [
+    { id: "above-5000", label: "Above 5000" },
+    { id: "3000-5000", label: "3000–5000" },
+    { id: "1000-2999", label: "1000–2999" },
+    { id: "500-999", label: "500–999" },
+    { id: "100-499", label: "100–499" },
+    { id: "below-100", label: "Below 100" },
+  ];
+
   const productsPerPage = 16;
   const [currentPage, setCurrentPage] = useState(1);
 
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
 
-  const currentProducts = products.slice(startIndex, endIndex);
+  const currentProducts = filteredProducts.slice(startIndex, endIndex);
 
   const startDisplay = startIndex + 1;
-  const endDisplay = Math.min(endIndex, products.length);
+  const endDisplay = Math.min(endIndex, filteredProducts.length);
 
   return (
     <>
       <ShopBgHero title="Shop" />
       <div className="flex justify-between items-center bg-wheat px-24 py-6">
         <div className="flex items-center gap-6">
-          <div className="flex gap-2 border-e-2 border-slate-400">
+          <button
+            onClick={() => setIsFilterOpen(true)}
+            className="flex gap-2 border-e-2 border-slate-400"
+          >
             <img src={filter} className="h-[25px]" alt="" />
             <span className="text-xl me-6">Filter</span>
-          </div>
+          </button>
           <p>
-            Showing {startDisplay}–{endDisplay} of {products.length} results
+            Showing {startDisplay}–{endDisplay} of {filteredProducts.length}{" "}
+            results
           </p>
         </div>
 
@@ -46,20 +158,91 @@ function Shop() {
       </div>
 
       <div className="flex justify-center gap-6 mb-20">
-        {Array.from({
-          length: Math.ceil(products.length / productsPerPage),
-        }).map((_, i) => (
-          <button
-            key={i}
-            className={`${i + 1 === currentPage ? "bg-dark text-white" : "bg-wheat"} text-xl rounded-lg w-14 h-14`}
-            onClick={() => setCurrentPage(i + 1)}
-          >
-            {i + 1}
-          </button>
-        ))}
+        {filteredProducts.length === 0 ? (
+          <p className="text-center text-2xl text-slate-400 mb-20">
+            No items found.
+          </p>
+        ) : (
+          <>
+            {Array.from({
+              length: Math.ceil(filteredProducts.length / productsPerPage),
+            }).map((_, i) => (
+              <button
+                key={i}
+                className={`${
+                  i + 1 === currentPage ? "bg-dark text-white" : "bg-wheat"
+                } text-xl rounded-lg w-14 h-14`}
+                onClick={() => setCurrentPage(i + 1)}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </>
+        )}
       </div>
 
       <ShopBgFooter />
+
+      {isFilterOpen && (
+        <div className="fixed inset-0 bg-black/30 z-50">
+          <div className="bg-white w-1/5 h-full pt-10 pb-6 px-8 absolute top-0 left-0 overflow-y-auto">
+            <button onClick={() => setIsFilterOpen(false)}>
+              <IoCloseSharp className="text-xl absolute top-6 right-8" />
+            </button>
+            <h2 className="text-2xl mb-4">Filters</h2>
+            <p className="flex items-center justify-between mb-4 border-b-2 pb-2 border-slate-300">
+              Category
+            </p>
+            <div className="flex flex-col ms-4 gap-1">
+              {categories.map((c) => (
+                <div className="flex items-center gap-2" key={c.id}>
+                  <input
+                    type="checkbox"
+                    id={c}
+                    checked={filters.categories.includes(c)}
+                    onChange={() => handleCategoryChange(c)}
+                  />
+                  <label htmlFor={c}>{c}</label>
+                </div>
+              ))}
+            </div>
+
+            <p className="flex items-center justify-between mb-4 border-b-2 pb-2 border-slate-300 mt-6">
+              Brand
+            </p>
+            <div className="flex flex-col ms-4 gap-1">
+              {brands.map((b) => (
+                <div className="flex items-center gap-2" key={b.id}>
+                  <input
+                    type="checkbox"
+                    id={b}
+                    checked={filters.brands.includes(b)}
+                    onChange={() => handleBrandChange(b)}
+                  />
+                  <label htmlFor={b}>{b}</label>
+                </div>
+              ))}
+            </div>
+
+            <p className="flex items-center justify-between mb-4 border-b-2 pb-2 border-slate-300 mt-6">
+              Price
+            </p>
+            <div className="flex flex-col ms-4 gap-1">
+              {priceRanges.map((p) => (
+                <div className="flex items-center gap-2" key={p.id}>
+                  <input
+                    type="checkbox"
+                    id={p.id}
+                    checked={filters.priceRanges.includes(p.id)}
+                    onChange={() => handlePriceRangeChange(p.id)}
+                  />
+                  <label htmlFor={p.id}>{p.label}</label>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

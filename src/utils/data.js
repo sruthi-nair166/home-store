@@ -105,7 +105,7 @@ const data = [
     title: "Hammock Decoration Swing",
     description:
       "The Decoration Swing is a charming addition to your home decor. Crafted with intricate details, it adds a touch of elegance and whimsy to any room.",
-    category: "Home Decoration",
+    category: "Home Decor",
     price: 8399.99,
     discountPercentage: 10.41,
     rating: 3.16,
@@ -155,7 +155,7 @@ const data = [
     description:
       "The Bedside Table in African Cherry is a stylish and functional addition to your bedroom, providing convenient storage space and a touch of elegance.",
     category: "Furniture",
-    price: 2899.99,
+    price: 3799.99,
     discountPercentage: 19.09,
     rating: 2.87,
     stock: 64,
@@ -205,7 +205,7 @@ const data = [
     title: "Black Aluminium Cup",
     description:
       "The Black Aluminium Cup is a stylish and durable cup suitable for both hot and cold beverages. Its sleek black design adds a modern touch to your drinkware collection.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 455.99,
     discountPercentage: 15.65,
     rating: 4.46,
@@ -254,7 +254,7 @@ const data = [
     title: "Family Tree Photo Frame",
     description:
       "The Family Tree Photo Frame is a sentimental and stylish way to display your cherished family memories. With multiple photo slots, it tells the story of your loved ones.",
-    category: "Home Decoration",
+    category: "Home Decor",
     price: 295.99,
     discountPercentage: 14.87,
     rating: 4.53,
@@ -303,7 +303,7 @@ const data = [
     title: "House Showpiece Plant",
     description:
       "The House Showpiece Plant is an artificial plant that brings a touch of nature to your home without the need for maintenance. It adds greenery and style to any space.",
-    category: "Home Decoration",
+    category: "Home Decor",
     price: 999.99,
     discountPercentage: 7.46,
     rating: 4.67,
@@ -352,7 +352,7 @@ const data = [
     title: "Hammock Table Lamp",
     description:
       "The Table Lamp is a functional and decorative lighting solution for your living space. With a modern design, it provides both ambient and task lighting, enhancing the atmosphere.",
-    category: "Home Decoration",
+    category: "Home Decor",
     price: 2360.99,
     discountPercentage: 7.09,
     rating: 3.55,
@@ -401,7 +401,7 @@ const data = [
     title: "Chopping Board",
     description:
       "The Chopping Board is an essential kitchen accessory for food preparation. Made from durable material, it provides a safe and hygienic surface for cutting and chopping.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 549.99,
     discountPercentage: 8.03,
     rating: 3.7,
@@ -548,7 +548,7 @@ const data = [
     title: "Carbon Steel Wok",
     description:
       "The Carbon Steel Wok is a versatile cooking pan suitable for stir-frying, sautéing, and deep frying. Its sturdy construction ensures even heat distribution for delicious meals.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 289.99,
     discountPercentage: 6.53,
     rating: 4.05,
@@ -597,7 +597,7 @@ const data = [
     title: "Fine Mesh Strainer",
     description:
       "The Fine Mesh Strainer is a versatile tool for straining liquids and sifting dry ingredients. Its fine mesh ensures efficient filtering for smooth cooking and baking.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 280.99,
     discountPercentage: 3.5,
     rating: 3.04,
@@ -646,7 +646,7 @@ const data = [
     title: "GoodHomes Steel Fork",
     description:
       "The Fork is a classic utensil for various dining and serving purposes. Its durable and ergonomic design makes it a reliable choice for everyday use.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 35.99,
     discountPercentage: 8.07,
     rating: 3.11,
@@ -695,7 +695,7 @@ const data = [
     title: "GoodHomes Tumbler Glass",
     description:
       "The Glass is a versatile and elegant drinking vessel suitable for a variety of beverages. Its clear design allows you to enjoy the colors and textures of your drinks.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 45.99,
     discountPercentage: 7.92,
     rating: 4.02,
@@ -744,7 +744,7 @@ const data = [
     title: "Grater Black",
     description:
       "The Grater in Black is a handy kitchen tool for grating cheese, vegetables, and more. Its sleek design and sharp blades make food preparation efficient and easy.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 99.99,
     discountPercentage: 3.56,
     rating: 3.21,
@@ -793,7 +793,7 @@ const data = [
     title: "Ice Cube Tray",
     description:
       "The Ice Cube Tray is a practical accessory for making ice cubes in various shapes. Perfect for keeping your drinks cool and adding a fun element to your beverages.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 112.99,
     discountPercentage: 0.63,
     rating: 4.71,
@@ -842,7 +842,7 @@ const data = [
     title: "GoodHomes Kitchen Knife",
     description:
       "The Knife is an essential kitchen tool for chopping, slicing, and dicing. Its sharp blade and ergonomic handle make it a reliable choice for food preparation.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 299.99,
     discountPercentage: 18.86,
     rating: 3.26,
@@ -891,8 +891,8 @@ const data = [
     title: "Mug Tree Stand",
     description:
       "The Mug Tree Stand is a stylish and space-saving solution for organizing your mugs. Keep your favorite mugs easily accessible and neatly displayed in your kitchen.",
-    category: "Kitchen Accessories",
-    price: 3153.99,
+    category: "Kitchen",
+    price: 3553.99,
     discountPercentage: 9.25,
     rating: 2.64,
     stock: 88,
@@ -940,7 +940,7 @@ const data = [
     title: "Non-Stick Pan",
     description:
       "The Pan is a versatile and essential cookware item for frying, sautéing, and cooking various dishes. Its non-stick coating ensures easy food release and cleanup.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 640.99,
     discountPercentage: 3,
     rating: 2.79,
@@ -989,7 +989,7 @@ const data = [
     title: "Blossom & Bowl Plates",
     description:
       "The Plate is a classic and essential dishware item for serving meals. Its durable and stylish design makes it suitable for everyday use or special occasions.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 250.99,
     discountPercentage: 7.31,
     rating: 3.65,
@@ -1038,7 +1038,7 @@ const data = [
     title: "GoodHomes Silver Pot With Glass Cap",
     description:
       "The Silver Pot with Glass Cap is a stylish and functional cookware item for boiling, simmering, and preparing delicious meals. Its glass cap allows you to monitor cooking progress.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 885.99,
     discountPercentage: 5.7,
     rating: 3.22,
@@ -1093,7 +1093,7 @@ const data = [
     title: "GoodHomes Slotted Turner",
     description:
       "The Slotted Turner is a kitchen utensil designed for flipping and turning food items. Its slotted design allows excess liquid to drain, making it ideal for frying and sautéing.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 250.99,
     discountPercentage: 13.35,
     rating: 3.4,
@@ -1142,7 +1142,7 @@ const data = [
     title: "Spice Rack",
     description:
       "The Spice Rack is a convenient organizer for your spices and seasonings. Keep your kitchen essentials within reach and neatly arranged with this stylish spice rack.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 270.99,
     discountPercentage: 12.09,
     rating: 4.87,
@@ -1191,7 +1191,7 @@ const data = [
     title: "GoodHomes Steel Spoon",
     description:
       "The Spoon is a versatile kitchen utensil for stirring, serving, and tasting. Its ergonomic design and durable construction make it an essential tool for every kitchen.",
-    category: "Kitchen Accessories",
+    category: "Kitchen",
     price: 30.99,
     discountPercentage: 1.53,
     rating: 4.03,
