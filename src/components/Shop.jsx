@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ListSubheader from "@mui/material/ListSubheader";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { IoSearchOutline } from "react-icons/io5";
 
 function Shop() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -18,6 +19,9 @@ function Shop() {
     brands: [],
     priceRanges: [],
   });
+  const [sortOption, setSortOption] = useState("");
+  const [sortBy, setSortBy] = useState("");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (isFilterOpen) {
@@ -125,9 +129,6 @@ function Shop() {
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
 
-  const [sortOption, setSortOption] = useState("");
-  const [sortBy, setSortBy] = useState("");
-
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     const priceA = a.price * (1 - a.discountPercentage / 100);
 
@@ -146,10 +147,16 @@ function Shop() {
     }
   });
 
-  const currentProducts = sortedProducts.slice(startIndex, endIndex);
+  const searchedProducts = sortedProducts.filter(
+    (product) =>
+      product.title.toLowerCase().includes(search.toLowerCase()) ||
+      product.brand.toLowerCase().includes(search.toLowerCase()),
+  );
+
+  const currentProducts = searchedProducts.slice(startIndex, endIndex);
 
   const startDisplay = startIndex + 1;
-  const endDisplay = Math.min(endIndex, filteredProducts.length);
+  const endDisplay = Math.min(endIndex, searchedProducts.length);
 
   return (
     <>
@@ -164,88 +171,102 @@ function Shop() {
             <span className="text-xl me-6">Filter</span>
           </button>
           <p>
-            Showing {startDisplay}–{endDisplay} of {filteredProducts.length}{" "}
-            results
+            Showing {searchedProducts.length === 0 ? 0 : startDisplay}–
+            {endDisplay} of {searchedProducts.length} results
           </p>
         </div>
 
-        <div className="flex items-center gap-4">
-          <p className="text-xl">Sort By</p>
-          <FormControl className="bg-white" sx={{ m: 1, width: 150 }}>
-            <InputLabel
-              sx={{
-                "&.Mui-focused": {
-                  color: "grey !important",
-                },
-              }}
-              id="grouped-select-label"
-              htmlFor="grouped-select"
-            >
-              {sortOption === "price"
-                ? "Price"
-                : sortOption === "rating"
-                  ? "Rating"
-                  : "Default"}
-            </InputLabel>
-            <Select
-              defaultValue=""
-              id="grouped-select"
-              label="Default"
-              SelectDisplayProps={{
-                "aria-labelledby": "grouped-select-label",
-              }}
-              sx={{
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-                "&:hover .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-                "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                  border: "none",
-                },
-              }}
-            >
-              <ListSubheader>Price</ListSubheader>
-              <MenuItem
-                onClick={() => {
-                  setSortOption("price");
-                  setSortBy("Price: High to Low");
+        <div className="flex gap-6">
+          <div className="relative w-72 flex items-center">
+            <input
+              type="text"
+              placeholder="Search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full py-4 px-4"
+            />
+
+            <IoSearchOutline className="absolute right-4 text-lg" />
+          </div>
+
+          <div className="flex items-center gap-4">
+            <p className="text-xl">Sort By</p>
+            <FormControl className="bg-white" sx={{ m: 1, width: 150 }}>
+              <InputLabel
+                sx={{
+                  "&.Mui-focused": {
+                    color: "grey !important",
+                  },
                 }}
-                value="Price: High to Low"
+                id="grouped-select-label"
+                htmlFor="grouped-select"
               >
-                High to Low
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  setSortOption("price");
-                  setSortBy("Price: Low to High");
+                {sortOption === "price"
+                  ? "Price"
+                  : sortOption === "rating"
+                    ? "Rating"
+                    : "Default"}
+              </InputLabel>
+              <Select
+                defaultValue=""
+                id="grouped-select"
+                label="Default"
+                SelectDisplayProps={{
+                  "aria-labelledby": "grouped-select-label",
                 }}
-                value="Price: Low to High"
-              >
-                Low to High
-              </MenuItem>
-              <ListSubheader>Rating</ListSubheader>
-              <MenuItem
-                onClick={() => {
-                  setSortOption("rating");
-                  setSortBy("Rating: High to Low");
+                sx={{
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    border: "none",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    border: "none",
+                  },
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    border: "none",
+                  },
                 }}
-                value="Rating: High to Low"
               >
-                High to Low
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  setSortOption("rating");
-                  setSortBy("Rating: Low to High");
-                }}
-                value="Rating: Low to High"
-              >
-                Low to High
-              </MenuItem>
-            </Select>
-          </FormControl>
+                <ListSubheader>Price</ListSubheader>
+                <MenuItem
+                  onClick={() => {
+                    setSortOption("price");
+                    setSortBy("Price: High to Low");
+                  }}
+                  value="Price: High to Low"
+                >
+                  High to Low
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setSortOption("price");
+                    setSortBy("Price: Low to High");
+                  }}
+                  value="Price: Low to High"
+                >
+                  Low to High
+                </MenuItem>
+                <ListSubheader>Rating</ListSubheader>
+                <MenuItem
+                  onClick={() => {
+                    setSortOption("rating");
+                    setSortBy("Rating: High to Low");
+                  }}
+                  value="Rating: High to Low"
+                >
+                  High to Low
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    setSortOption("rating");
+                    setSortBy("Rating: Low to High");
+                  }}
+                  value="Rating: Low to High"
+                >
+                  Low to High
+                </MenuItem>
+              </Select>
+            </FormControl>
+          </div>
         </div>
       </div>
 
@@ -256,14 +277,14 @@ function Shop() {
       </div>
 
       <div className="flex justify-center gap-6 mb-20">
-        {filteredProducts.length === 0 ? (
+        {searchedProducts.length === 0 ? (
           <p className="text-center text-2xl text-slate-400 mb-20">
             No items found.
           </p>
         ) : (
           <>
             {Array.from({
-              length: Math.ceil(filteredProducts.length / productsPerPage),
+              length: Math.ceil(searchedProducts.length / productsPerPage),
             }).map((_, i) => (
               <button
                 key={i}
