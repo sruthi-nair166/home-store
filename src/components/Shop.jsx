@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useState, useEffect } from "react";
 import filter from "../assets/system-uicons_filtering.png";
 import ShopBgHero from "./ShopBgHero";
@@ -11,6 +12,10 @@ import ListSubheader from "@mui/material/ListSubheader";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { IoSearchOutline } from "react-icons/io5";
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import { useDispatch } from "react-redux";
+import { addToWishlist } from "../features/wishlist/wishlistSlice";
 
 function Shop() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -34,6 +39,53 @@ function Shop() {
       document.body.style.overflow = "";
     };
   }, [isFilterOpen]);
+
+  const [snackPack, setSnackPack] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [messageInfo, setMessageInfo] = React.useState(undefined);
+
+  React.useEffect(() => {
+    if (snackPack.length && !messageInfo) {
+      setMessageInfo({ ...snackPack[0] });
+      setSnackPack((prev) => prev.slice(1));
+      setOpen(true);
+    } else if (snackPack.length && messageInfo && open) {
+      setOpen(false);
+    }
+  }, [snackPack, messageInfo, open]);
+
+  const dispatch = useDispatch();
+
+  const handleClick =
+    (message, undo = false, product = null) =>
+    () => {
+      setSnackPack((prev) => [
+        ...prev,
+        {
+          message,
+          undo,
+          product,
+          key: new Date().getTime(),
+        },
+      ]);
+    };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const handleExited = () => {
+    setMessageInfo(undefined);
+  };
+
+  const handleUndo = () => {
+    if (messageInfo?.product) {
+      dispatch(addToWishlist(messageInfo.product));
+    }
+  };
 
   const handleCategoryChange = (category) => {
     setFilters((prev) => {
@@ -272,7 +324,7 @@ function Shop() {
 
       <div className="grid grid-cols-4 gap-10 mx-24 my-16">
         {currentProducts.map((product) => {
-          return <ProductCard product={product} />;
+          return <ProductCard product={product} handleClick={handleClick} />;
         })}
       </div>
 
@@ -362,6 +414,22 @@ function Shop() {
           </div>
         </div>
       )}
+
+      <Snackbar
+        key={messageInfo ? messageInfo.key : undefined}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        slotProps={{ transition: { onExited: handleExited } }}
+        message={messageInfo ? messageInfo.message : undefined}
+        action={
+          messageInfo?.undo ? (
+            <Button color="secondary" size="small" onClick={handleUndo}>
+              UNDO
+            </Button>
+          ) : null
+        }
+      />
     </>
   );
 }

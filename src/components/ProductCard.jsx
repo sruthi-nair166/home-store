@@ -11,7 +11,7 @@ import {
 } from "../features/wishlist/wishlistSlice";
 import { setColumn1 } from "../features/compare/compareSlice";
 
-function ProductCard({ product }) {
+function ProductCard({ product, handleClick }) {
   const wishlist = useSelector((state) => state.wishlist.value || []);
   const dispatch = useDispatch();
 
@@ -48,7 +48,16 @@ function ProductCard({ product }) {
             <button
               aria-label="Wishlist"
               className="inline-block align-middle group absolute top-5 right-5"
-              onClick={handleToggle}
+              onClick={() => {
+                handleToggle();
+                handleClick(
+                  `${product.title} ${
+                    isInWishlist ? "removed from Wishlist" : "added to Wishlist"
+                  }`,
+                  isInWishlist,
+                  product,
+                )();
+              }}
             >
               {isInWishlist ? (
                 <GoHeartFill className="text-wheat text-xl" />
@@ -57,6 +66,7 @@ function ProductCard({ product }) {
               )}
             </button>
           </Tooltip>
+
           <div className="flex flex-col gap-3">
             <Link
               to={`/products/${product.id}`}

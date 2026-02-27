@@ -5,8 +5,60 @@ import kitchen from "../assets/categories/kitchen.jpg";
 import { Link } from "react-router-dom";
 import products from "../utils/data";
 import ProductCard from "./ProductCard";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import { useDispatch } from "react-redux";
+import { addToWishlist } from "../features/wishlist/wishlistSlice";
 
 function Home() {
+  const [snackPack, setSnackPack] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [messageInfo, setMessageInfo] = React.useState(undefined);
+
+  React.useEffect(() => {
+    if (snackPack.length && !messageInfo) {
+      setMessageInfo({ ...snackPack[0] });
+      setSnackPack((prev) => prev.slice(1));
+      setOpen(true);
+    } else if (snackPack.length && messageInfo && open) {
+      setOpen(false);
+    }
+  }, [snackPack, messageInfo, open]);
+
+  const dispatch = useDispatch();
+
+  const handleClick =
+    (message, undo = false, product = null) =>
+    () => {
+      setSnackPack((prev) => [
+        ...prev,
+        {
+          message,
+          undo,
+          product,
+          key: new Date().getTime(),
+        },
+      ]);
+    };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const handleExited = () => {
+    setMessageInfo(undefined);
+  };
+
+  const handleUndo = () => {
+    if (messageInfo?.product) {
+      dispatch(addToWishlist(messageInfo.product));
+    }
+  };
+
   return (
     <>
       <section
@@ -75,6 +127,7 @@ function Home() {
                 <ProductCard
                   key={`${product.id}-${product.title}`}
                   product={product}
+                  handleClick={handleClick}
                 />
               );
             }
@@ -88,6 +141,22 @@ function Home() {
           Show More
         </Link>
       </section>
+
+      <Snackbar
+        key={messageInfo ? messageInfo.key : undefined}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        slotProps={{ transition: { onExited: handleExited } }}
+        message={messageInfo ? messageInfo.message : undefined}
+        action={
+          messageInfo?.undo ? (
+            <Button color="secondary" size="small" onClick={handleUndo}>
+              UNDO
+            </Button>
+          ) : null
+        }
+      />
     </>
   );
 }
