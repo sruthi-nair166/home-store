@@ -14,6 +14,8 @@ import {
 import products from "../utils/data.js";
 import { useState, useEffect } from "react";
 import { IoCloseSharp } from "react-icons/io5";
+import * as React from "react";
+import Snackbar from "@mui/material/Snackbar";
 
 function Comparison() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,6 +39,13 @@ function Comparison() {
   };
 
   const handleSelectProduct = (product) => {
+    const alreadyExists = columns.some((col) => col && col.id === product.id);
+
+    if (alreadyExists) {
+      handleClick(`${product.title} already in comparison`, "info")();
+      return;
+    }
+
     if (selectedColumn === 1) dispatch(setColumn1(product));
     if (selectedColumn === 2) dispatch(setColumn2(product));
     if (selectedColumn === 3) dispatch(setColumn3(product));
@@ -58,6 +67,51 @@ function Comparison() {
   );
 
   const columns = [column1, column2, column3, column4];
+
+  const [snackPack, setSnackPack] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [messageInfo, setMessageInfo] = React.useState(undefined);
+
+  React.useEffect(() => {
+    if (snackPack.length && !messageInfo) {
+      setMessageInfo({ ...snackPack[0] });
+      setSnackPack((prev) => prev.slice(1));
+      setOpen(true);
+    } else if (snackPack.length && messageInfo && open) {
+      setOpen(false);
+    }
+  }, [snackPack, messageInfo, open]);
+
+  const handleClick =
+    (message, type = "info", product = null) =>
+    () => {
+      setSnackPack((prev) => [
+        ...prev,
+        {
+          message,
+          type,
+          product,
+          key: new Date().getTime(),
+        },
+      ]);
+    };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const handleExited = () => {
+    setMessageInfo(undefined);
+  };
+
+  const handleView = () => {
+    if (messageInfo?.product) {
+      dispatch(addToWishlist(messageInfo.product));
+    }
+  };
 
   return (
     <>
@@ -260,9 +314,14 @@ function Comparison() {
                 <td className="border-l-2 ps-6">
                   {col ? (
                     <button
-                      onClick={() =>
-                        dispatch(addToCart({ ...col, quantity: 1 }))
-                      }
+                      onClick={() => {
+                        dispatch(addToCart({ ...col, quantity: 1 }));
+                        handleClick(
+                          `${col.title} added to cart`,
+                          "view",
+                          col,
+                        )();
+                      }}
                       className="bg-dark text-white px-6 py-3 mt-6"
                     >
                       Add to Cart
@@ -331,6 +390,32 @@ function Comparison() {
           </div>
         </div>
       )}
+
+      <Snackbar
+        sx={{
+          "& .MuiSnackbarContent-root": {
+            backgroundColor: "#fff",
+            color: "#000",
+          },
+        }}
+        key={messageInfo ? messageInfo.key : undefined}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        slotProps={{ transition: { onExited: handleExited } }}
+        message={messageInfo ? messageInfo.message : undefined}
+        action={
+          messageInfo?.type === "view" ? (
+            <Link
+              to="/cart"
+              className="text-dark font-semibold tracking-widest mr-1"
+              onClick={handleClose}
+            >
+              VIEW
+            </Link>
+          ) : null
+        }
+      />
     </>
   );
 }

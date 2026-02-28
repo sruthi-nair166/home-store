@@ -3,8 +3,11 @@ import ShopBgFooter from "./ShopBgFooter";
 import { AiFillDelete } from "react-icons/ai";
 import Tooltip from "@mui/material/Tooltip";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart } from "../features/cart/cartSlice";
+import { addToCart, removeFromCart } from "../features/cart/cartSlice";
 import { Link } from "react-router-dom";
+import * as React from "react";
+import Snackbar from "@mui/material/Snackbar";
+import Button from "@mui/material/Button";
 
 function Cart() {
   const cartData = useSelector((state) => state.cart.value || []);
@@ -15,6 +18,54 @@ function Cart() {
 
     return acc + discountedPrice * item.quantity;
   }, 0);
+
+  const [snackPack, setSnackPack] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [messageInfo, setMessageInfo] = React.useState(undefined);
+
+  React.useEffect(() => {
+    if (snackPack.length && !messageInfo) {
+      setMessageInfo({ ...snackPack[0] });
+      setSnackPack((prev) => prev.slice(1));
+      setOpen(true);
+    } else if (snackPack.length && messageInfo && open) {
+      setOpen(false);
+    }
+  }, [snackPack, messageInfo, open]);
+
+  const handleClick =
+    (message, undo = false, product = null) =>
+    () => {
+      setSnackPack((prev) => [
+        ...prev,
+        {
+          message,
+          undo,
+          product,
+          key: new Date().getTime(),
+        },
+      ]);
+    };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const handleExited = () => {
+    setMessageInfo(undefined);
+  };
+
+  const handleUndo = () => {
+    if (messageInfo?.product) {
+      dispatch(addToCart(messageInfo.product));
+    }
+
+    setOpen(false);
+    setMessageInfo(undefined);
+  };
 
   return (
     <>
@@ -76,7 +127,14 @@ function Cart() {
                     <td className="p-6">
                       <Tooltip title="Delete" arrow>
                         <button
-                          onClick={() => dispatch(removeFromCart(item.id))}
+                          onClick={() => {
+                            dispatch(removeFromCart(item.id));
+                            handleClick(
+                              `${item.title} removed from cart`,
+                              true,
+                              item,
+                            )();
+                          }}
                           className="relative z-10 p-4"
                           aria-label="Delete"
                         >
@@ -118,6 +176,31 @@ function Cart() {
       </div>
 
       <ShopBgFooter title="Cart" />
+
+      <Snackbar
+        sx={{
+          "& .MuiSnackbarContent-root": {
+            backgroundColor: "#fff",
+            color: "#000",
+          },
+        }}
+        key={messageInfo ? messageInfo.key : undefined}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        slotProps={{ transition: { onExited: handleExited } }}
+        message={messageInfo ? messageInfo.message : undefined}
+        action={
+          messageInfo?.undo ? (
+            <button
+              className="text-dark font-semibold tracking-widest mr-1"
+              onClick={handleUndo}
+            >
+              UNDO
+            </button>
+          ) : null
+        }
+      />
     </>
   );
 }

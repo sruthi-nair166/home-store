@@ -17,22 +17,18 @@ export const cartSlice = createSlice({
         (item) => item.id === action.payload.id,
       );
 
-      const minQty = action.payload.minimumOrderQuantity;
+      const maxQty = action.payload.minimumOrderQuantity;
+      const newQty = Math.min(action.payload.quantity, maxQty);
 
       if (existingItem) {
-        if (existingItem.quantity >= minQty) {
-          return;
-        }
-        existingItem.quantity = Math.min(
-          existingItem.quantity + action.payload.quantity,
-          minQty,
-        );
+        existingItem.quantity = newQty;
       } else {
         state.value.push({
           ...action.payload,
-          quantity: Math.min(action.payload.quantity, minQty),
+          quantity: newQty,
         });
       }
+
       localStorage.setItem("cart", JSON.stringify(state.value));
     },
   },

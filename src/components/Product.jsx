@@ -2,7 +2,7 @@ import Rating from "@mui/material/Rating";
 import { GoPlus } from "react-icons/go";
 import { HiOutlineMinusSm } from "react-icons/hi";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import products from "../utils/data.js";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,6 +12,8 @@ import {
   removeFromWishlist,
 } from "../features/wishlist/wishlistSlice.js";
 import { setColumn1 } from "../features/compare/compareSlice";
+import * as React from "react";
+import Snackbar from "@mui/material/Snackbar";
 
 function Product() {
   const { id } = useParams();
@@ -19,15 +21,53 @@ function Product() {
   const wishlistItems = useSelector((state) => state.wishlist.value || []);
   const dispatch = useDispatch();
 
+  const [snackPack, setSnackPack] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [messageInfo, setMessageInfo] = React.useState(undefined);
+
+  React.useEffect(() => {
+    if (snackPack.length && !messageInfo) {
+      setMessageInfo({ ...snackPack[0] });
+      setSnackPack((prev) => prev.slice(1));
+      setOpen(true);
+    } else if (snackPack.length && messageInfo && open) {
+      setOpen(false);
+    }
+  }, [snackPack, messageInfo, open]);
+
+  const handleClick =
+    (message, undo = false, product = null, redirectTo = null) =>
+    () => {
+      setSnackPack((prev) => [
+        ...prev,
+        {
+          message,
+          undo,
+          product,
+          redirectTo,
+          key: new Date().getTime(),
+        },
+      ]);
+    };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const handleExited = () => {
+    setMessageInfo(undefined);
+  };
+
+  const handleUndo = () => {
+    if (messageInfo?.product) {
+      dispatch(addToWishlist(messageInfo.product));
+    }
+  };
+
   const currentProduct = products.find((product) => product.id === Number(id));
-
-  const existingItem = cartItems.find((item) => item.id === currentProduct.id);
-
-  const alreadyInCart = existingItem ? existingItem.quantity : 0;
-
-  const maxAllowed = currentProduct.minimumOrderQuantity;
-
-  const remaining = maxAllowed - alreadyInCart;
 
   if (!currentProduct) {
     return;
@@ -51,7 +91,14 @@ function Product() {
 
   const [size, setSize] = useState("XS");
   const [currentImg, setCurrentImg] = useState(currentProduct.images[0]);
-  const [quantity, setQuantity] = useState(1);
+
+  const existingItem = cartItems.find((item) => item.id === currentProduct.id);
+
+  const maxAllowed = currentProduct.minimumOrderQuantity;
+
+  const [quantity, setQuantity] = useState(
+    existingItem ? existingItem.quantity : 1,
+  );
 
   return (
     <>
@@ -135,46 +182,84 @@ function Product() {
             </button>
           </div>
 
-          <div className="flex gap-4 mb-8">
+          <div className="flex gap-4">
             <div
               role="spinbutton"
               aria-label="Quantity"
-              aria-valuenow={quantity}
-              aria-valuemin={1}
-              aria-valuemax={currentProduct.minimumOrderQuantity}
-              className="flex items-center justify-between gap-4 border-2 border-slate-400 rounded-md"
+              className="flex items-center justify-between gap-4 border-2 border-black rounded-md"
             >
               <button
-                aria-label="Decrease quantity"
-                onClick={() => setQuantity((prev) => Math.max(prev - 1, 1))}
-                disabled={quantity === 1}
-                className="disabled:text-slate-400 disabled:cursor-not-allowed"
+                onClick={() => {
+                  if (quantity > 1) {
+                    setQuantity((prev) => prev - 1);
+                  }
+                }}
+                className={`${
+                  quantity === 1
+                    ? "text-slate-400 cursor-not-allowed"
+                    : "text-black"
+                } ps-3`}
               >
-                <HiOutlineMinusSm className="ms-2" />
+                <HiOutlineMinusSm />
               </button>
+
               <span>{quantity}</span>
+
               <button
-                aria-label="Increase quantity"
-                onClick={() =>
-                  setQuantity((prev) => Math.min(prev + 1, remaining))
-                }
-                disabled={quantity >= remaining}
-                className="disabled:text-slate-400 disabled:cursor-not-allowed"
+                onClick={() => {
+                  if (quantity < maxAllowed) {
+                    setQuantity((prev) => prev + 1);
+                  } else {
+                    handleClick("Maximum quantity reached")();
+                  }
+                }}
+                className={`${
+                  quantity >= maxAllowed
+                    ? "text-slate-400 cursor-not-allowed"
+                    : "text-black"
+                } pe-3`}
               >
-                <GoPlus className="me-2" />
+                <GoPlus />
               </button>
             </div>
+
             <button
-              className="border-2 border-black rounded-lg px-8 py-3 disabled:cursor-not-allowed"
-              onClick={() =>
-                dispatch(addToCart({ ...currentProduct, quantity }))
-              }
-              disabled={remaining <= 0}
+              className={"border-2 border-black rounded-lg px-8 py-3"}
+              onClick={() => {
+                if (
+                  existingItem &&
+                  existingItem.quantity === maxAllowed &&
+                  quantity === maxAllowed
+                ) {
+                  handleClick("Maximum quantity reached")();
+                  return;
+                }
+
+                dispatch(addToCart({ ...currentProduct, quantity }));
+
+                handleClick(
+                  existingItem ? "Cart updated" : "Added to cart",
+                  false,
+                  null,
+                  "/cart",
+                )();
+              }}
             >
-              Add to Cart
+              {existingItem ? "Update Cart" : "Add to Cart"}
             </button>
+
             <button
-              onClick={handleToggle}
+              onClick={() => {
+                handleToggle();
+                handleClick(
+                  `${currentProduct.title} ${
+                    isInWishlist ? "removed from Wishlist" : "added to Wishlist"
+                  }`,
+                  isInWishlist,
+                  currentProduct,
+                  !isInWishlist ? "/wishlist" : null,
+                )();
+              }}
               className="border-2 border-black rounded-lg px-8 py-3"
             >
               {isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
@@ -191,7 +276,13 @@ function Product() {
             </Link>
           </div>
 
-          <div className="flex gap-10 border-t-2 pt-4">
+          {existingItem && (
+            <p className="text-sm text-slate-500 mt-3">
+              {existingItem.quantity} currently in cart
+            </p>
+          )}
+
+          <div className="flex gap-10 border-t-2 pt-4  mt-8">
             <p className="text-slate-400 flex gap-4">
               <span>SKU:</span> <span>{currentProduct.sku}</span>
             </p>
@@ -233,6 +324,32 @@ function Product() {
           ))}
         </div>
       </div>
+
+      <Snackbar
+        sx={{
+          "& .MuiSnackbarContent-root": {
+            backgroundColor: "#fff",
+            color: "#000",
+          },
+        }}
+        key={messageInfo ? messageInfo.key : undefined}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        slotProps={{ transition: { onExited: handleExited } }}
+        message={messageInfo ? messageInfo.message : undefined}
+        action={
+          messageInfo?.redirectTo ? (
+            <Link
+              to={messageInfo.redirectTo}
+              className="text-dark font-semibold tracking-widest mr-1"
+              onClick={handleClose}
+            >
+              VIEW
+            </Link>
+          ) : null
+        }
+      />
     </>
   );
 }

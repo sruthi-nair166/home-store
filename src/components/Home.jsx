@@ -6,10 +6,7 @@ import { Link } from "react-router-dom";
 import products from "../utils/data";
 import ProductCard from "./ProductCard";
 import * as React from "react";
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
-import { useDispatch } from "react-redux";
-import { addToWishlist } from "../features/wishlist/wishlistSlice";
 
 function Home() {
   const [snackPack, setSnackPack] = React.useState([]);
@@ -25,8 +22,6 @@ function Home() {
       setOpen(false);
     }
   }, [snackPack, messageInfo, open]);
-
-  const dispatch = useDispatch();
 
   const handleClick =
     (message, undo = false, product = null) =>
@@ -143,6 +138,12 @@ function Home() {
       </section>
 
       <Snackbar
+        sx={{
+          "& .MuiSnackbarContent-root": {
+            backgroundColor: "#fff",
+            color: "#000",
+          },
+        }}
         key={messageInfo ? messageInfo.key : undefined}
         open={open}
         autoHideDuration={6000}
@@ -150,11 +151,16 @@ function Home() {
         slotProps={{ transition: { onExited: handleExited } }}
         message={messageInfo ? messageInfo.message : undefined}
         action={
-          messageInfo?.undo ? (
-            <Button color="secondary" size="small" onClick={handleUndo}>
-              UNDO
-            </Button>
-          ) : null
+          messageInfo?.undo ? null : (
+            <Link
+              to="/wishlist"
+              className="text-dark font-semibold tracking-widest mr-1"
+              size="small"
+              onClick={handleUndo}
+            >
+              VIEW
+            </Link>
+          )
         }
       />
     </>
