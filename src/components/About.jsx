@@ -73,7 +73,7 @@ function About() {
         <h1 className="text-5xl font-semibold mb-8 mt-40">
           Your Home, Curated.
         </h1>
-        <p className="text-slate-500 sm:text-center text-left mb-28">
+        <p className="text-slate-500 sm:text-center text-left mb-16">
           From handcrafted furniture to essential kitchenware, we source
           timeless pieces designed to turn your everyday house into a personal
           sanctuary.
