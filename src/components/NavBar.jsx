@@ -44,7 +44,14 @@ function NavBar() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/" className="font-medium hover:text-dark transition">
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                isActive
+                  ? "border-b-4 font-medium border-dark pb-6"
+                  : "font-medium border-0 hover:text-dark transition"
+              }
+            >
               About
             </NavLink>
           </li>
@@ -111,7 +118,7 @@ function NavBar() {
               <li className="hover:bg-slate-100 w-full">
                 <NavLink
                   className="flex w-full justify-end py-4 pe-12"
-                  to="/"
+                  to="/about"
                   onClick={() => setIsOpen(false)}
                 >
                   About

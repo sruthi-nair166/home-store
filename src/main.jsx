@@ -7,6 +7,7 @@ import "./index.css";
 import Root from "./routes/Root";
 import Home from "./components/Home";
 import Shop from "./components/Shop";
+import About from "./components/About";
 import Contact from "./components/Contact";
 import Cart from "./components/Cart";
 import Wishlist from "./components/Wishlist";
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "shop", element: <Shop /> },
+      { path: "about", element: <About /> },
       { path: "contact", element: <Contact /> },
       { path: "cart", element: <Cart /> },
       { path: "wishlist", element: <Wishlist /> },
