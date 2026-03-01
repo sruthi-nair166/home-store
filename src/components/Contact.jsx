@@ -8,18 +8,19 @@ function Contact() {
   return (
     <>
       <ShopBgHero title="Contact" />
-      <div className="text-center mt-24 mb-16">
+
+      <div className="text-center mt-24 mx-10 mb-16">
         <h2 className="text-4xl font-semibold mb-2">Get In Touch With Us</h2>
-        <p className="text-slate-400 mx-56">
+        <p className="text-slate-400 sm:mx-24">
           For More Information About Our Product & Services. Please Feel Free To
           Drop Us An Email. Our Staff Always Be There To Help You Out. Do Not
           Hesitate!
         </p>
       </div>
 
-      <div className="flex gap-48 mx-40 mb-24">
-        <div className="flex flex-col gap-10">
-          <div className="flex gap-6">
+      <div className="flex lg:flex-row flex-col justify-between gap-10 sm:mx-40 mx-10 mb-24">
+        <div className="flex flex-col flex-none gap-10 mx-auto">
+          <div className="flex justify-between gap-6">
             <FaLocationDot className="text-2xl mt-1" />
             <div>
               <h3 className="text-2xl font-medium">Address</h3>
@@ -44,7 +45,7 @@ function Contact() {
           </div>
         </div>
 
-        <form className="flex-grow flex flex-col gap-10">
+        <form className="flex-1 flex flex-col gap-10 lg:mt-0 mt-20">
           <label htmlFor="name" className="flex flex-col">
             <p className="mb-3">
               Your name: <span className="text-red-500">*</span>
@@ -87,7 +88,9 @@ function Contact() {
               className="border-2 border-slate-400 p-5 rounded-lg"
             ></textarea>
           </label>
-          <button className="bg-dark text-white p-5 rounded-lg">Submit</button>
+          <button className="bg-dark border-2 border-dark text-white hover:bg-white hover:text-dark transition p-5 font-medium text-lg rounded-lg">
+            Submit
+          </button>
         </form>
       </div>
 

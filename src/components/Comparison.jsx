@@ -117,244 +117,252 @@ function Comparison() {
     <>
       <ShopBgHero title="Product Comparison" />
 
-      <div className="mx-24 my-12">
+      <div className="lg:mx-24 mx-12 my-12">
         <p className="text-2xl font-medium mb-4">
           Go to Product page for more Products
         </p>
-        <Link className="border-b-2 border-black pb-1" to="/shop">
+        <Link
+          className="border-b-2 border-black hover:border-dark hover:text-dark transition pb-1"
+          to="/shop"
+        >
           View More
         </Link>
       </div>
 
-      <div className="flex gap-20 mx-24 mb-28 items-start">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">&nbsp;</th>
-              {columns.map((col, i) =>
-                col ? (
-                  <th
-                    className="text-left pe-14 pb-14"
-                    aria-label="Annibale Colombo Sofa"
-                  >
-                    <div className="relative group overflow-hidden rounded-lg">
-                      <img
-                        src={col.images[0]}
-                        className="rounded-lg w-[280px] h-[180px] object-cover"
-                        alt={col.title}
-                      />
-                      <div
-                        className="absolute inset-0 bg-black/60 opacity-0 
+      <div className="px-4 sm:px-6 lg:px-24 mb-28">
+        <div className="overflow-x-auto">
+          <table className="min-w-[1100px]">
+            <thead>
+              <tr>
+                <th scope="col">&nbsp;</th>
+                {columns.map((col, i) =>
+                  col ? (
+                    <th
+                      className="text-left pe-14 pb-14"
+                      aria-label="Annibale Colombo Sofa"
+                    >
+                      <div className="relative group overflow-hidden rounded-lg">
+                        <img
+                          src={col.images[0]}
+                          className="rounded-lg w-[280px] h-[180px] object-cover"
+                          alt={col.title}
+                        />
+                        <div
+                          className="absolute inset-0 bg-black/60 opacity-0 
                        group-hover:opacity-100 
                        transition-opacity duration-300
                        flex flex-col items-center justify-center gap-3 z-10"
-                      >
-                        <Link
-                          to={`/products/${col.id}`}
-                          className="bg-white text-dark font-normal px-4 py-1"
                         >
-                          View Details
-                        </Link>
-                        <button
-                          onClick={() => handleDeleteColumn(i)}
-                          className="bg-white text-dark font-normal px-10 py-1"
-                        >
-                          Delete
-                        </button>
+                          <Link
+                            to={`/products/${col.id}`}
+                            className="bg-white text-dark hover:bg-dark hover:text-white transition font-normal px-4 py-1"
+                          >
+                            View Details
+                          </Link>
+                          <button
+                            onClick={() => handleDeleteColumn(i)}
+                            className="bg-white text-dark hover:bg-dark hover:text-white transition font-normal px-10 py-1"
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                    <h2 className="text-2xl font-medium mt-3 mb-1">
-                      {col.title}
-                    </h2>
-                    <div className="text-lg font-medium flex items-center justify-between">
-                      <span>
-                        Rs{" "}
-                        {(
-                          col.price *
-                          (1 - col.discountPercentage / 100)
-                        ).toFixed(2)}
-                      </span>
-                      <p className="flex items-center gap-1">
-                        <span className="text-base text-slate-400 font-medium">
-                          {col.rating.toFixed(1)}
+                      <h2 className="text-2xl font-medium mt-3 mb-1">
+                        {col.title}
+                      </h2>
+                      <div className="text-lg font-medium flex items-center justify-between">
+                        <span>
+                          Rs{" "}
+                          {(
+                            col.price *
+                            (1 - col.discountPercentage / 100)
+                          ).toFixed(2)}
                         </span>
-                        <FaRegStar className="text-dark text-base" />
-                      </p>
-                    </div>
-                  </th>
-                ) : (
-                  <th className="pb-20 px-16">
-                    <button
-                      onClick={() => handleAddProductClick(i + 1)}
-                      className="flex items-center gap-1 bg-dark text-white font-medium px-4 py-2 rounded-md"
-                    >
-                      <span>Add a product</span>
-                      <GoPlus className="text-2xl" />
-                    </button>
-                  </th>
-                ),
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="border-t-2">
-              <th
-                scope="row"
-                className="text-2xl font-medium text-left pt-14 pb-6"
-              >
-                General
-              </th>
-              {columns.map(() => (
-                <td className="border-l-2">&nbsp;</td>
-              ))}
-            </tr>
-            <tr>
-              <th className="text-left font-medium pe-48 py-6" scope="row">
-                Brand
-              </th>
-              {columns.map((col) => (
-                <td className="border-l-2 ps-6">{col && col.brand}</td>
-              ))}
-            </tr>
-            <tr>
-              <th scope="row" className="text-2xl font-medium text-left py-6">
-                Dimensions
-              </th>
-              {columns.map(() => (
-                <td className="border-l-2">&nbsp;</td>
-              ))}
-            </tr>
-            <tr>
-              <th className="text-left font-medium py-6" scope="row">
-                Weight
-              </th>
-              {columns.map((col) => (
-                <td className="border-l-2 ps-6">{col && col.weight}</td>
-              ))}
-            </tr>
-            <tr>
-              <th className="text-left font-medium py-6" scope="row">
-                Width
-              </th>
-              {columns.map((col) => (
-                <td className="border-l-2 ps-6">
-                  {col && col.dimensions.width}
-                </td>
-              ))}
-            </tr>
-            <tr>
-              <th className="text-left font-medium py-6" scope="row">
-                Height
-              </th>
-              {columns.map((col) => (
-                <td className="border-l-2 ps-6">
-                  {col && col.dimensions.height}
-                </td>
-              ))}
-            </tr>
-            <tr>
-              <th className="text-left font-medium py-6" scope="row">
-                Depth
-              </th>
-              {columns.map((col) => (
-                <td className="border-l-2 ps-6">
-                  {col && col.dimensions.depth}
-                </td>
-              ))}
-            </tr>
-            <tr>
-              <th scope="row" className="text-2xl font-medium text-left py-6">
-                Other
-              </th>
-              {columns.map(() => (
-                <td className="border-l-2">&nbsp;</td>
-              ))}
-            </tr>
-            <tr>
-              <th className="text-left font-medium py-6" scope="row">
-                Warranty
-              </th>
-              {columns.map((col) => (
-                <td className="border-l-2 ps-6">
-                  {col && col.warrantyInformation}
-                </td>
-              ))}
-            </tr>
-            <tr>
-              <th className="text-left font-medium py-6" scope="row">
-                Shipping
-              </th>
-              {columns.map((col) => (
-                <td className="border-l-2 ps-6">
-                  {col && col.shippingInformation}
-                </td>
-              ))}
-            </tr>
-            <tr>
-              <th className="text-left font-medium py-6" scope="row">
-                Availability
-              </th>
-              {columns.map((col) => (
-                <td className="border-l-2 ps-6">
-                  {col && col.availabilityStatus}
-                </td>
-              ))}
-            </tr>
-            <tr>
-              <th className="text-left font-medium py-6" scope="row">
-                Return Policy
-              </th>
-              {columns.map((col) => (
-                <td className="border-l-2 ps-6">{col && col.returnPolicy}</td>
-              ))}
-            </tr>
-            <tr>
-              <th scope="row" className="py-6"></th>
-              {columns.map((col) => (
-                <td className="border-l-2 ps-6">
-                  {col ? (
-                    <button
-                      onClick={() => {
-                        dispatch(addToCart({ ...col, quantity: 1 }));
-                        handleClick(
-                          `${col.title} added to cart`,
-                          "view",
-                          col,
-                        )();
-                      }}
-                      className="bg-dark text-white px-6 py-3 mt-6"
-                    >
-                      Add to Cart
-                    </button>
-                  ) : null}
-                </td>
-              ))}
-            </tr>
-          </tbody>
-        </table>
+                        <p className="flex items-center gap-1">
+                          <span className="text-base text-slate-400 font-medium">
+                            {col.rating.toFixed(1)}
+                          </span>
+                          <FaRegStar className="text-dark text-base" />
+                        </p>
+                      </div>
+                    </th>
+                  ) : (
+                    <th className="pb-20 px-16">
+                      <button
+                        onClick={() => handleAddProductClick(i + 1)}
+                        className="flex items-center gap-1 bg-dark text-white border-2 border-dark hover:border-dark hover:text-dark hover:bg-white transition font-medium px-4 py-2 rounded-md"
+                      >
+                        <span>Add a product</span>
+                        <GoPlus className="text-2xl" />
+                      </button>
+                    </th>
+                  ),
+                )}
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-t-2">
+                <th
+                  scope="row"
+                  className="text-2xl font-medium text-left pt-14 pb-6"
+                >
+                  General
+                </th>
+                {columns.map(() => (
+                  <td className="border-l-2">&nbsp;</td>
+                ))}
+              </tr>
+              <tr>
+                <th
+                  className="text-left font-medium sm:pe-48 pe-32 py-6"
+                  scope="row"
+                >
+                  Brand
+                </th>
+                {columns.map((col) => (
+                  <td className="border-l-2 ps-6">{col && col.brand}</td>
+                ))}
+              </tr>
+              <tr>
+                <th scope="row" className="text-2xl font-medium text-left py-6">
+                  Dimensions
+                </th>
+                {columns.map(() => (
+                  <td className="border-l-2">&nbsp;</td>
+                ))}
+              </tr>
+              <tr>
+                <th className="text-left font-medium py-6" scope="row">
+                  Weight
+                </th>
+                {columns.map((col) => (
+                  <td className="border-l-2 ps-6">{col && col.weight}</td>
+                ))}
+              </tr>
+              <tr>
+                <th className="text-left font-medium py-6" scope="row">
+                  Width
+                </th>
+                {columns.map((col) => (
+                  <td className="border-l-2 ps-6">
+                    {col && col.dimensions.width}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <th className="text-left font-medium py-6" scope="row">
+                  Height
+                </th>
+                {columns.map((col) => (
+                  <td className="border-l-2 ps-6">
+                    {col && col.dimensions.height}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <th className="text-left font-medium py-6" scope="row">
+                  Depth
+                </th>
+                {columns.map((col) => (
+                  <td className="border-l-2 ps-6">
+                    {col && col.dimensions.depth}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <th scope="row" className="text-2xl font-medium text-left py-6">
+                  Other
+                </th>
+                {columns.map(() => (
+                  <td className="border-l-2">&nbsp;</td>
+                ))}
+              </tr>
+              <tr>
+                <th className="text-left font-medium py-6" scope="row">
+                  Warranty
+                </th>
+                {columns.map((col) => (
+                  <td className="border-l-2 ps-6">
+                    {col && col.warrantyInformation}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <th className="text-left font-medium py-6" scope="row">
+                  Shipping
+                </th>
+                {columns.map((col) => (
+                  <td className="border-l-2 ps-6">
+                    {col && col.shippingInformation}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <th className="text-left font-medium py-6" scope="row">
+                  Availability
+                </th>
+                {columns.map((col) => (
+                  <td className="border-l-2 ps-6">
+                    {col && col.availabilityStatus}
+                  </td>
+                ))}
+              </tr>
+              <tr>
+                <th className="text-left font-medium py-6" scope="row">
+                  Return Policy
+                </th>
+                {columns.map((col) => (
+                  <td className="border-l-2 ps-6">{col && col.returnPolicy}</td>
+                ))}
+              </tr>
+              <tr>
+                <th scope="row" className="py-6"></th>
+                {columns.map((col) => (
+                  <td className="border-l-2 ps-6">
+                    {col ? (
+                      <button
+                        onClick={() => {
+                          dispatch(addToCart({ ...col, quantity: 1 }));
+                          handleClick(
+                            `${col.title} added to cart`,
+                            "view",
+                            col,
+                          )();
+                        }}
+                        className="bg-dark border-2 border-dark text-white hover:text-dark hover:bg-white hover:border-2 hover:border-dark transition px-6 py-3 mt-6"
+                      >
+                        Add to Cart
+                      </button>
+                    ) : null}
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <ShopBgFooter />
 
       {isOpen && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-          <div className="bg-white px-12 pb-10 rounded-lg max-h-[80vh] relative overflow-y-auto">
+          <div className="bg-white sm:px-12 px-4 pb-10 mx-10 rounded-lg max-h-[80vh] relative overflow-y-auto">
             <button onClick={() => setIsOpen(false)}>
               <IoCloseSharp className="text-2xl absolute top-6 right-8" />
             </button>
             <h2 className="text-center text-4xl font-semibold mt-12 mb-16">
               Choose a Product
             </h2>
-            <div className="grid grid-cols-3 gap-8">
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
               {products.map((product) => (
                 <button
                   key={product.id}
                   onClick={() => handleSelectProduct(product)}
-                  className="bg-slate-100 max-w-[285px] cursor-pointer transform transition duration-200 hover:scale-105 hover:shadow-lg flex flex-col text-left"
+                  className="bg-slate-100 w-full cursor-pointer transform transition duration-200 hover:scale-105 hover:shadow-lg flex flex-col text-left"
                 >
                   <img
                     src={product.images[0]}
-                    className="h-[300px] w-full object-cover object-top"
+                    className="h-[300px] w-full object-cover object-center"
                     alt={product.title}
                   />
                   <div className="flex flex-col mt-4 pb-6 mx-4 relative z-0">
@@ -386,7 +394,6 @@ function Comparison() {
                 </button>
               ))}
             </div>
-            );
           </div>
         </div>
       )}

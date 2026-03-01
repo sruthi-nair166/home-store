@@ -57,34 +57,36 @@ function Home() {
   return (
     <>
       <section
-        className="h-[calc(100vh-80px)] bg-contain bg-no-repeat bg-right-top bg-wheat"
+        className="h-screen bg-cover bg-no-repeat bg-top bg-wheat flex flex-col justify-center lg:items-start items-center"
         style={{ backgroundImage: `url(${hero})` }}
       >
-        <div className="bg-orange-100 h-full w-1/2 flex flex-col justify-center items-start mt-[80px] px-20">
-          <h1 className="text-7xl text-dark font-semibold mb-7">
+        <div className="bg-orange-100 lg:h-full lg:w-1/2 w-3/4 h-3/4 flex flex-col justify-center lg:items-start items-center mt-[80px] sm:px-20 px-10">
+          <h1 className="sm:text-7xl text-5xl text-dark font-semibold mb-7 lg:text-left text-center">
             Home Decor Collection
           </h1>
-          <p className="text-lg mb-14">
+          <p className="text-lg sm:mb-14 mb-10 lg:text-left text-center">
             Explore premium furniture, home decorations, and kitchen decor that
             turn everyday spaces into something special.
           </p>
           <Link
             to="/shop"
-            className="bg-dark text-white font-bold uppercase tracking-widest px-24 py-5"
+            className="bg-dark border-2 border-dark hover:border-2 hover:border-dark hover:text-dark hover:bg-white text-white transition font-bold uppercase tracking-widest sm:px-24 sm:py-5 px-20 py-2 text-center"
           >
             Buy Now
           </Link>
         </div>
       </section>
 
-      <section className="mt-14 flex flex-col items-center">
-        <h2 className="text-3xl font-bold">Browse The Range</h2>
-        <p className="text-slate-500 mb-12">
+      <section className="mt-14 mx-10 flex flex-col items-center">
+        <h2 className="text-3xl font-bold text-center mb-4">
+          Browse The Range
+        </h2>
+        <p className="text-slate-500 mb-12 text-center">
           Explore our curated selection of furniture, home décor, and kitchen
           essentials.
         </p>
 
-        <div className="grid grid-cols-3 gap-8 text-center">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 text-center">
           <div>
             <img
               className="rounded-lg h-[480px] w-full object-cover"
@@ -112,10 +114,10 @@ function Home() {
         </div>
       </section>
 
-      <section className="flex flex-col items-center mt-14">
+      <section className="flex flex-col items-center mt-14 lg:mx-24 mx-10">
         <h2 className="text-3xl font-bold mb-10">Our Products</h2>
 
-        <div className="grid grid-cols-4 gap-10">
+        <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-10">
           {products.map((product, i) => {
             if (i < 8) {
               return (
@@ -131,7 +133,7 @@ function Home() {
 
         <Link
           to="/shop"
-          className="border-2 text-dark font-semibold border-dark px-16 py-3 mt-10 mb-14"
+          className="border-2 text-dark font-semibold border-dark hover:border-white hover:bg-dark hover:text-white transition px-16 py-3 mt-10 mb-14"
         >
           Show More
         </Link>

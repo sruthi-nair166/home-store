@@ -25,6 +25,15 @@ function Product() {
   const [open, setOpen] = React.useState(false);
   const [messageInfo, setMessageInfo] = React.useState(undefined);
 
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleScroll = (e) => {
+    const scrollPosition = e.target.scrollLeft;
+    const width = e.target.offsetWidth;
+    const index = Math.round(scrollPosition / width);
+    setActiveIndex(index);
+  };
+
   React.useEffect(() => {
     if (snackPack.length && !messageInfo) {
       setMessageInfo({ ...snackPack[0] });
@@ -102,7 +111,7 @@ function Product() {
 
   return (
     <>
-      <div className="flex items-center gap-6 bg-wheat px-24 py-6 mt-[80px]">
+      <div className="flex items-center gap-6 bg-wheat sm:px-24 px-10 py-6 mt-[80px]">
         <div className="flex gap-4 border-e-2 border-slate-400">
           <Link to="/" className="font-light">
             Home
@@ -116,29 +125,46 @@ function Product() {
         <p>{currentProduct.title}</p>
       </div>
 
-      <div className="flex gap-20 mx-24 mt-14 mb-20">
-        <div className="flex gap-6">
-          <div className="flex flex-col gap-6">
-            {currentProduct.images.map((image) => {
-              return (
-                <button key={image} onClick={() => setCurrentImg(image)}>
+      <div className="flex lg:flex-row flex-col 2xl:gap-20 gap-10 2xl:mx-24 lg:mx-10 sm:mx-20 sm:mt-14 mb-20">
+        <div className="flex flex-col sm:flex-row gap-6">
+          <div className="sm:hidden w-full relative">
+            <div
+              onScroll={handleScroll}
+              className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"
+            >
+              {currentProduct.images.map((image, index) => (
+                <div key={index} className="min-w-full snap-center">
                   <img
                     src={image}
                     alt={currentProduct.title}
-                    className={`max-w-[80px] rounded-md bg-wheat ${currentImg === image ? "opacity-100" : "opacity-40"}`}
+                    className="w-full h-[400px] object-cover bg-[#fdf8f0]"
                   />
-                </button>
-              );
-            })}
+                </div>
+              ))}
+            </div>
+
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+              {currentProduct.images.map((_, i) => (
+                <div
+                  key={i}
+                  className={`h-2 w-2 rounded-full transition-all ${
+                    activeIndex === i ? "bg-white w-4" : "bg-white/50"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
-          <img
-            src={currentImg}
-            alt={currentProduct.title}
-            className="h-[395px] max-w-[400px] bg-cover rounded-lg bg-wheat"
-          />
+
+          <div className="hidden sm:block">
+            <img
+              src={currentImg}
+              alt={currentProduct.title}
+              className="h-[395px] max-w-[400px] w-full sm:object-cover object-contain rounded-lg bg-wheat"
+            />
+          </div>
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 sm:mx-0 mx-10">
           <h2 className="text-4xl mb-2 font-medium">{currentProduct.title}</h2>
           <p className="text-2xl text-slate-400 font-medium mb-4">
             Rs{" "}
@@ -182,7 +208,7 @@ function Product() {
             </button>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <div
               role="spinbutton"
               aria-label="Quantity"
@@ -210,7 +236,9 @@ function Product() {
                   if (quantity < maxAllowed) {
                     setQuantity((prev) => prev + 1);
                   } else {
-                    handleClick("Maximum quantity reached")();
+                    handleClick(
+                      "You’ve reached the maximum quantity for this item.",
+                    )();
                   }
                 }}
                 className={`${
@@ -224,14 +252,18 @@ function Product() {
             </div>
 
             <button
-              className={"border-2 border-black rounded-lg px-8 py-3"}
+              className={
+                "border-2 border-black hover:text-white hover:bg-slate-800 transition rounded-lg px-8 py-3"
+              }
               onClick={() => {
                 if (
                   existingItem &&
                   existingItem.quantity === maxAllowed &&
                   quantity === maxAllowed
                 ) {
-                  handleClick("Maximum quantity reached")();
+                  handleClick(
+                    "You’ve reached the maximum quantity for this item.",
+                  )();
                   return;
                 }
 
@@ -260,14 +292,14 @@ function Product() {
                   !isInWishlist ? "/wishlist" : null,
                 )();
               }}
-              className="border-2 border-black rounded-lg px-8 py-3"
+              className="border-2 border-black hover:text-white hover:bg-slate-800 transition rounded-lg px-8 py-3"
             >
               {isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
             </button>
             <Link
               to="/comparison"
               onClick={handleCompareClick}
-              className="flex items-center gap-1 border-2 border-black rounded-lg px-6 py-3"
+              className="flex items-center gap-1 border-2 border-black hover:text-white hover:bg-slate-800 transition rounded-lg px-6 py-3"
             >
               <span>
                 <GoPlus />
@@ -282,7 +314,7 @@ function Product() {
             </p>
           )}
 
-          <div className="flex gap-10 border-t-2 pt-4  mt-8">
+          <div className="flex flex-wrap gap-x-10 gap-y-3 border-t-2 pt-4 mt-8">
             <p className="text-slate-400 flex gap-4">
               <span>SKU:</span> <span>{currentProduct.sku}</span>
             </p>
@@ -297,27 +329,24 @@ function Product() {
         </div>
       </div>
 
-      <div className="mx-24 mb-28">
+      <div className="sm:mx-24 mx-10 mb-28">
         <h3 className="text-2xl text-slate-400 mb-6">
           Reviews ({currentProduct.reviews.length})
         </h3>
 
-        <div className="">
+        <div>
           {currentProduct.reviews.map((review) => (
             <div key={review.reviewerEmail}>
-              <div className="flex mt-6">
+              <div className="flex sm:flex-row flex-col mt-6">
                 <div className="mb-4">
                   <h4 className="text-xl font-medium">{review.reviewerName}</h4>
                   <p className="text-slate-400 text-sm">
                     {review.reviewerEmail}
                   </p>
                 </div>
-                <Rating
-                  name="read-only"
-                  value={review.rating}
-                  readOnly
-                  className="me-4"
-                />
+                <div className="w-max">
+                  <Rating name="read-only" value={review.rating} readOnly />
+                </div>
               </div>
               <p className="pb-8 border-b-2">{review.comment}</p>
             </div>

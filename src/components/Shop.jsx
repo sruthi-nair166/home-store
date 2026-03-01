@@ -209,11 +209,12 @@ function Shop() {
   return (
     <>
       <ShopBgHero title="Shop" />
-      <div className="flex justify-between items-center bg-wheat px-24 py-6">
-        <div className="flex items-center gap-6">
+
+      <div className="flex md:flex-row flex-col justify-between items-center bg-wheat lg:px-24 px-12 py-6 gap-6">
+        <div className="flex justify-between w-full gap-6">
           <button
             onClick={() => setIsFilterOpen(true)}
-            className="flex gap-2 border-e-2 border-slate-400"
+            className="flex gap-2 border-e-2 pe-6 border-slate-400"
           >
             <img src={filter} className="h-[25px]" alt="" />
             <span className="text-xl me-6">Filter</span>
@@ -224,8 +225,8 @@ function Shop() {
           </p>
         </div>
 
-        <div className="flex gap-6">
-          <div className="relative w-72 flex items-center">
+        <div className="flex sm:flex-row flex-col gap-6 w-full sm:mt-0 mt-2">
+          <div className="relative sm:min-w-20 w-full flex items-center">
             <input
               type="text"
               placeholder="Search"
@@ -237,88 +238,90 @@ function Shop() {
             <IoSearchOutline className="absolute right-4 text-lg" />
           </div>
 
-          <div className="flex items-center gap-4">
-            <p className="text-xl">Sort By</p>
-            <FormControl className="bg-white" sx={{ m: 1, width: 150 }}>
-              <InputLabel
-                sx={{
-                  "&.Mui-focused": {
-                    color: "grey !important",
-                  },
-                }}
-                id="grouped-select-label"
-                htmlFor="grouped-select"
-              >
-                {sortOption === "price"
-                  ? "Price"
-                  : sortOption === "rating"
-                    ? "Rating"
-                    : "Default"}
-              </InputLabel>
-              <Select
-                defaultValue=""
-                id="grouped-select"
-                label="Default"
-                SelectDisplayProps={{
-                  "aria-labelledby": "grouped-select-label",
-                }}
-                sx={{
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    border: "none",
-                  },
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    border: "none",
-                  },
-                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    border: "none",
-                  },
-                }}
-              >
-                <ListSubheader>Price</ListSubheader>
-                <MenuItem
-                  onClick={() => {
-                    setSortOption("price");
-                    setSortBy("Price: High to Low");
+          <div className="flex items-center justify-end gap-0">
+            <p className="text-lg">Sort By</p>
+            <div className="w-full sm:w-40">
+              <FormControl fullWidth className="bg-white">
+                <InputLabel
+                  sx={{
+                    "&.Mui-focused": {
+                      color: "grey !important",
+                    },
                   }}
-                  value="Price: High to Low"
+                  id="grouped-select-label"
+                  htmlFor="grouped-select"
                 >
-                  High to Low
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    setSortOption("price");
-                    setSortBy("Price: Low to High");
+                  {sortOption === "price"
+                    ? "Price"
+                    : sortOption === "rating"
+                      ? "Rating"
+                      : "Default"}
+                </InputLabel>
+                <Select
+                  defaultValue=""
+                  id="grouped-select"
+                  label="Default"
+                  SelectDisplayProps={{
+                    "aria-labelledby": "grouped-select-label",
                   }}
-                  value="Price: Low to High"
-                >
-                  Low to High
-                </MenuItem>
-                <ListSubheader>Rating</ListSubheader>
-                <MenuItem
-                  onClick={() => {
-                    setSortOption("rating");
-                    setSortBy("Rating: High to Low");
+                  sx={{
+                    "& .MuiOutlinedInput-notchedOutline": {
+                      border: "none",
+                    },
+                    "&:hover .MuiOutlinedInput-notchedOutline": {
+                      border: "none",
+                    },
+                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                      border: "none",
+                    },
                   }}
-                  value="Rating: High to Low"
                 >
-                  High to Low
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    setSortOption("rating");
-                    setSortBy("Rating: Low to High");
-                  }}
-                  value="Rating: Low to High"
-                >
-                  Low to High
-                </MenuItem>
-              </Select>
-            </FormControl>
+                  <ListSubheader>Price</ListSubheader>
+                  <MenuItem
+                    onClick={() => {
+                      setSortOption("price");
+                      setSortBy("Price: High to Low");
+                    }}
+                    value="Price: High to Low"
+                  >
+                    High to Low
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setSortOption("price");
+                      setSortBy("Price: Low to High");
+                    }}
+                    value="Price: Low to High"
+                  >
+                    Low to High
+                  </MenuItem>
+                  <ListSubheader>Rating</ListSubheader>
+                  <MenuItem
+                    onClick={() => {
+                      setSortOption("rating");
+                      setSortBy("Rating: High to Low");
+                    }}
+                    value="Rating: High to Low"
+                  >
+                    High to Low
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      setSortOption("rating");
+                      setSortBy("Rating: Low to High");
+                    }}
+                    value="Rating: Low to High"
+                  >
+                    Low to High
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-10 mx-24 my-16">
+      <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-10 lg:mx-24 mx-12 my-16">
         {currentProducts.map((product) => {
           return <ProductCard product={product} handleClick={handleClick} />;
         })}
@@ -352,7 +355,7 @@ function Shop() {
 
       {isFilterOpen && (
         <div className="fixed inset-0 bg-black/30 z-50">
-          <div className="bg-white w-1/5 h-full pt-10 pb-6 px-8 absolute top-0 left-0 overflow-y-auto">
+          <div className="bg-white md:w-1/3 w-2/3 h-full pt-10 pb-6 px-8 absolute top-0 left-0 overflow-y-auto">
             <button onClick={() => setIsFilterOpen(false)}>
               <IoCloseSharp className="text-xl absolute top-6 right-8" />
             </button>

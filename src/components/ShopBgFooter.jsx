@@ -6,33 +6,33 @@ import { RiCustomerService2Line } from "react-icons/ri";
 function ShopBgFooter() {
   return (
     <>
-      <div className="flex justify-between p-24 bg-wheat">
+      <div className="grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 sm:p-24 p-12 gap-14 bg-wheat">
         <div className="flex items-center gap-5">
           <GrTrophy className="text-6xl" />
           <div>
             <p className="text-2xl font-semibold mb-1">High Quality</p>
-            <p className="text-slate-400">crafted from top materials</p>
+            <p className="text-slate-600">crafted from top materials</p>
           </div>
         </div>
         <div className="flex items-center gap-5">
           <BsPatchCheck className="text-6xl" />
           <div>
             <p className="text-2xl font-semibold mb-1">Warranty Protection</p>
-            <p className="text-slate-400">Over 2 years</p>
+            <p className="text-slate-600">Over 2 years</p>
           </div>
         </div>
         <div className="flex items-center gap-5">
           <LiaShippingFastSolid className="text-6xl" />
           <div>
             <p className="text-2xl font-semibold mb-1">Free Shipping</p>
-            <p className="text-slate-400">Order over 150</p>
+            <p className="text-slate-600">Order over 150</p>
           </div>
         </div>
         <div className="flex items-center gap-5">
           <RiCustomerService2Line className="text-6xl" />
           <div>
             <p className="text-2xl font-semibold mb-1">24 / 7 Support</p>
-            <p className="text-slate-400">Dedicated Support</p>
+            <p className="text-slate-600">Dedicated Support</p>
           </div>
         </div>
       </div>

@@ -31,10 +31,10 @@ function ProductCard({ product, handleClick }) {
 
   return (
     <>
-      <div className="bg-slate-100 max-w-[285px] relative group overflow-hidden">
+      <div className="bg-slate-100 w-full relative group overflow-hidden">
         <img
           src={product.images[0]}
-          className="h-[300px] w-full object-cover object-top"
+          className="h-[300px] w-full object-cover object-center"
           alt={product.title}
         />
 
@@ -70,7 +70,7 @@ function ProductCard({ product, handleClick }) {
           <div className="flex flex-col gap-3">
             <Link
               to={`/products/${product.id}`}
-              className="bg-white text-dark px-14 py-3 font-semibold"
+              className="bg-white text-dark hover:bg-dark hover:text-white transition px-14 py-3 font-semibold"
             >
               View Details
             </Link>
@@ -78,7 +78,7 @@ function ProductCard({ product, handleClick }) {
             <Link
               to="/comparison"
               onClick={handleCompareClick}
-              className="text-white font-medium px-6 py-2 flex items-center justify-center gap-2"
+              className="text-white hover:text-dark font-medium px-6 py-2 flex items-center justify-center gap-2"
             >
               <span>
                 <VscArrowSwap strokeWidth={0.5} />
