@@ -1,6 +1,6 @@
 # Home Store Ecommerce App
 
-[This]() is a modern e-commerce web application for home essentials including furniture, home décor, and kitchen accessories. Users can browse products, filter and sort them dynamically, compare items, manage their cart and wishlist, and view detailed product information.
+This is a modern e-commerce web application for home essentials including furniture, home décor, and kitchen accessories. Users can browse products, filter and sort them dynamically, compare items, manage their cart and wishlist, and view detailed product information.
 
 ## Table of contents
 
