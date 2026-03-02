@@ -70,7 +70,7 @@ function ProductCard({ product, handleClick }) {
           <div className="flex flex-col gap-3">
             <Link
               to={`/products/${product.id}`}
-              className="bg-white text-dark hover:bg-dark hover:text-white transition px-14 py-3 font-semibold"
+              className="bg-white text-dark hover:bg-dark hover:text-white transition px-14 py-3 mx-10 text-center font-semibold"
             >
               View Details
             </Link>

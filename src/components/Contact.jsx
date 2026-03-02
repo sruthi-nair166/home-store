@@ -88,7 +88,10 @@ function Contact() {
               className="border-2 border-slate-400 p-5 rounded-lg"
             ></textarea>
           </label>
-          <button className="bg-dark border-2 border-dark text-white hover:bg-white hover:text-dark transition p-5 font-medium text-lg rounded-lg">
+          <button
+            type="submit"
+            className="bg-dark border-2 border-dark text-white hover:bg-white hover:text-dark transition p-5 font-medium text-lg rounded-lg"
+          >
             Submit
           </button>
         </form>

@@ -127,13 +127,14 @@ function Product() {
 
       <div className="flex lg:flex-row flex-col 2xl:gap-20 gap-10 2xl:mx-24 lg:mx-10 sm:mx-20 sm:mt-14 mb-20">
         <div className="flex flex-col sm:flex-row gap-6">
+          {/* MOBILE SLIDER (Visible only on small screens) */}
           <div className="sm:hidden w-full relative">
             <div
               onScroll={handleScroll}
               className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar"
             >
               {currentProduct.images.map((image, index) => (
-                <div key={index} className="min-w-full snap-center">
+                <div key={`mob-${index}`} className="min-w-full snap-center">
                   <img
                     src={image}
                     alt={currentProduct.title}
@@ -142,11 +143,10 @@ function Product() {
                 </div>
               ))}
             </div>
-
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
               {currentProduct.images.map((_, i) => (
                 <div
-                  key={i}
+                  key={`dot-${i}`}
                   className={`h-2 w-2 rounded-full transition-all ${
                     activeIndex === i ? "bg-white w-4" : "bg-white/50"
                   }`}
@@ -155,15 +155,33 @@ function Product() {
             </div>
           </div>
 
-          <div className="hidden sm:block">
+          {/* DESKTOP THUMBNAILS (Visible on sm screens and up) */}
+          <div className="hidden sm:flex gap-6">
+            <div className="flex flex-col gap-6">
+              {currentProduct.images.map((image, index) => (
+                <button
+                  key={`thumb-${index}`}
+                  onClick={() => setCurrentImg(image)}
+                >
+                  <img
+                    src={image}
+                    alt={currentProduct.title}
+                    className={`max-w-[80px] rounded-md bg-wheat ${
+                      currentImg === image ? "opacity-100" : "opacity-40"
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
             <img
               src={currentImg}
               alt={currentProduct.title}
-              className="h-[395px] max-w-[400px] w-full sm:object-cover object-contain rounded-lg bg-wheat"
+              className="h-[395px] max-w-[400px] w-[400px] object-cover rounded-lg bg-wheat"
             />
           </div>
         </div>
 
+        {/* This is the Right Side Info (Title, Price, etc.) */}
         <div className="flex-1 sm:mx-0 mx-10">
           <h2 className="text-4xl mb-2 font-medium">{currentProduct.title}</h2>
           <p className="text-2xl text-slate-400 font-medium mb-4">

@@ -138,6 +138,7 @@ function Comparison() {
                 {columns.map((col, i) =>
                   col ? (
                     <th
+                      key={col.id}
                       className="text-left pe-14 pb-14"
                       aria-label="Annibale Colombo Sofa"
                     >
@@ -187,7 +188,7 @@ function Comparison() {
                       </div>
                     </th>
                   ) : (
-                    <th className="pb-20 px-16">
+                    <th key={`add-product-${i}`} className="pb-20 px-16">
                       <button
                         onClick={() => handleAddProductClick(i + 1)}
                         className="flex items-center gap-1 bg-dark text-white border-2 border-dark hover:border-dark hover:text-dark hover:bg-white transition font-medium px-4 py-2 rounded-md"
@@ -208,8 +209,10 @@ function Comparison() {
                 >
                   General
                 </th>
-                {columns.map(() => (
-                  <td className="border-l-2">&nbsp;</td>
+                {columns.map((_, i) => (
+                  <td key={`general-${i}`} className="border-l-2">
+                    &nbsp;
+                  </td>
                 ))}
               </tr>
               <tr>
@@ -219,32 +222,38 @@ function Comparison() {
                 >
                   Brand
                 </th>
-                {columns.map((col) => (
-                  <td className="border-l-2 ps-6">{col && col.brand}</td>
+                {columns.map((col, i) => (
+                  <td key={`brand-${i}`} className="border-l-2 ps-6">
+                    {col && col.brand}
+                  </td>
                 ))}
               </tr>
               <tr>
                 <th scope="row" className="text-2xl font-medium text-left py-6">
                   Dimensions
                 </th>
-                {columns.map(() => (
-                  <td className="border-l-2">&nbsp;</td>
+                {columns.map((_, i) => (
+                  <td key={`dimensions-${i}`} className="border-l-2">
+                    &nbsp;
+                  </td>
                 ))}
               </tr>
               <tr>
                 <th className="text-left font-medium py-6" scope="row">
                   Weight
                 </th>
-                {columns.map((col) => (
-                  <td className="border-l-2 ps-6">{col && col.weight}</td>
+                {columns.map((col, i) => (
+                  <td key={`weight-${i}`} className="border-l-2 ps-6">
+                    {col && col.weight}
+                  </td>
                 ))}
               </tr>
               <tr>
                 <th className="text-left font-medium py-6" scope="row">
                   Width
                 </th>
-                {columns.map((col) => (
-                  <td className="border-l-2 ps-6">
+                {columns.map((col, i) => (
+                  <td key={`width-${i}`} className="border-l-2 ps-6">
                     {col && col.dimensions.width}
                   </td>
                 ))}
@@ -253,8 +262,8 @@ function Comparison() {
                 <th className="text-left font-medium py-6" scope="row">
                   Height
                 </th>
-                {columns.map((col) => (
-                  <td className="border-l-2 ps-6">
+                {columns.map((col, i) => (
+                  <td key={`height-${i}`} className="border-l-2 ps-6">
                     {col && col.dimensions.height}
                   </td>
                 ))}
@@ -263,8 +272,8 @@ function Comparison() {
                 <th className="text-left font-medium py-6" scope="row">
                   Depth
                 </th>
-                {columns.map((col) => (
-                  <td className="border-l-2 ps-6">
+                {columns.map((col, i) => (
+                  <td key={`depth-${i}`} className="border-l-2 ps-6">
                     {col && col.dimensions.depth}
                   </td>
                 ))}
@@ -273,16 +282,18 @@ function Comparison() {
                 <th scope="row" className="text-2xl font-medium text-left py-6">
                   Other
                 </th>
-                {columns.map(() => (
-                  <td className="border-l-2">&nbsp;</td>
+                {columns.map((_, i) => (
+                  <td key={`other-${i}`} className="border-l-2">
+                    &nbsp;
+                  </td>
                 ))}
               </tr>
               <tr>
                 <th className="text-left font-medium py-6" scope="row">
                   Warranty
                 </th>
-                {columns.map((col) => (
-                  <td className="border-l-2 ps-6">
+                {columns.map((col, i) => (
+                  <td key={`warranty-${i}`} className="border-l-2 ps-6">
                     {col && col.warrantyInformation}
                   </td>
                 ))}
@@ -291,8 +302,8 @@ function Comparison() {
                 <th className="text-left font-medium py-6" scope="row">
                   Shipping
                 </th>
-                {columns.map((col) => (
-                  <td className="border-l-2 ps-6">
+                {columns.map((col, i) => (
+                  <td key={`shipping-${i}`} className="border-l-2 ps-6">
                     {col && col.shippingInformation}
                   </td>
                 ))}
@@ -301,8 +312,8 @@ function Comparison() {
                 <th className="text-left font-medium py-6" scope="row">
                   Availability
                 </th>
-                {columns.map((col) => (
-                  <td className="border-l-2 ps-6">
+                {columns.map((col, i) => (
+                  <td key={`availability-${i}`} className="border-l-2 ps-6">
                     {col && col.availabilityStatus}
                   </td>
                 ))}
@@ -311,14 +322,16 @@ function Comparison() {
                 <th className="text-left font-medium py-6" scope="row">
                   Return Policy
                 </th>
-                {columns.map((col) => (
-                  <td className="border-l-2 ps-6">{col && col.returnPolicy}</td>
+                {columns.map((col, i) => (
+                  <td key={`return-policy-${i}`} className="border-l-2 ps-6">
+                    {col && col.returnPolicy}
+                  </td>
                 ))}
               </tr>
               <tr>
                 <th scope="row" className="py-6"></th>
-                {columns.map((col) => (
-                  <td className="border-l-2 ps-6">
+                {columns.map((col, i) => (
+                  <td key={`add-to-cart-${i}`} className="border-l-2 ps-6">
                     {col ? (
                       <button
                         onClick={() => {

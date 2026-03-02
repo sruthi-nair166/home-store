@@ -211,7 +211,7 @@ function Shop() {
       <ShopBgHero title="Shop" />
 
       <div className="flex md:flex-row flex-col justify-between items-center bg-wheat lg:px-24 px-12 py-6 gap-6">
-        <div className="flex justify-between w-full gap-6">
+        <div className="flex justify-between lg:justify-start w-full gap-6">
           <button
             onClick={() => setIsFilterOpen(true)}
             className="flex gap-2 border-e-2 pe-6 border-slate-400"
@@ -323,7 +323,13 @@ function Shop() {
 
       <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-10 lg:mx-24 mx-12 my-16">
         {currentProducts.map((product) => {
-          return <ProductCard product={product} handleClick={handleClick} />;
+          return (
+            <ProductCard
+              key={product.id}
+              product={product}
+              handleClick={handleClick}
+            />
+          );
         })}
       </div>
 
@@ -365,7 +371,7 @@ function Shop() {
             </p>
             <div className="flex flex-col ms-4 gap-1">
               {categories.map((c) => (
-                <div className="flex items-center gap-2" key={c.id}>
+                <div key={c} className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     id={c}
@@ -382,7 +388,7 @@ function Shop() {
             </p>
             <div className="flex flex-col ms-4 gap-1">
               {brands.map((b) => (
-                <div className="flex items-center gap-2" key={b.id}>
+                <div key={b} className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     id={b}
@@ -399,7 +405,7 @@ function Shop() {
             </p>
             <div className="flex flex-col ms-4 gap-1">
               {priceRanges.map((p) => (
-                <div className="flex items-center gap-2" key={p.id}>
+                <div key={p.id} className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     id={p.id}

@@ -142,13 +142,13 @@ function Cart() {
                             <AiFillDelete className="text-dark text-xl" />
                           </button>
                         </Tooltip>
-                      </td>
 
-                      <Link
-                        to={`/products/${item.id}`}
-                        className="absolute inset-0"
-                        aria-label={`View ${item.title}`}
-                      />
+                        <Link
+                          to={`/products/${item.id}`}
+                          className="absolute inset-0"
+                          aria-label={`View ${item.title}`}
+                        />
+                      </td>
                     </tr>
                   );
                 })

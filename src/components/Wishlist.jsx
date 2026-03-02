@@ -143,13 +143,13 @@ function Wishlist() {
                       >
                         Add to Cart
                       </button>
-                    </td>
 
-                    <Link
-                      to={`/products/${item.id}`}
-                      className="absolute inset-0"
-                      aria-label={`View ${item.title}`}
-                    />
+                      <Link
+                        to={`/products/${item.id}`}
+                        className="absolute inset-0"
+                        aria-label={`View ${item.title}`}
+                      />
+                    </td>
                   </tr>
                 ))
               )}

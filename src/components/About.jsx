@@ -70,10 +70,10 @@ function About() {
   return (
     <div className="mt-[80px]">
       <div className="text-center sm:mx-24 mx-12">
-        <h1 className="text-5xl font-semibold mb-8 mt-40">
+        <h1 className="text-5xl font-semibold mb-4 mt-40">
           Your Home, Curated.
         </h1>
-        <p className="text-slate-500 sm:text-center text-left mb-16">
+        <p className="text-slate-500 text-center mb-32 leading-loose">
           From handcrafted furniture to essential kitchenware, we source
           timeless pieces designed to turn your everyday house into a personal
           sanctuary.
