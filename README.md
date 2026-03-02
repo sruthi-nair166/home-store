@@ -16,7 +16,6 @@
 
 ### Links
 
-- Solution URL: []()
 - Live Site URL: []()
 
 ### Screenshot
