@@ -127,7 +127,7 @@ function Product() {
 
       <div className="flex lg:flex-row flex-col 2xl:gap-20 gap-10 2xl:mx-24 lg:mx-10 sm:mx-20 sm:mt-14 mb-20">
         <div className="flex flex-col sm:flex-row gap-6">
-          {/* MOBILE SLIDER (Visible only on small screens) */}
+          {/* MOBILE SLIDER */}
           <div className="sm:hidden w-full relative">
             <div
               onScroll={handleScroll}
@@ -155,7 +155,7 @@ function Product() {
             </div>
           </div>
 
-          {/* DESKTOP THUMBNAILS (Visible on sm screens and up) */}
+          {/* DESKTOP THUMBNAILS */}
           <div className="hidden sm:flex gap-6">
             <div className="flex flex-col gap-6">
               {currentProduct.images.map((image, index) => (
@@ -181,7 +181,6 @@ function Product() {
           </div>
         </div>
 
-        {/* This is the Right Side Info (Title, Price, etc.) */}
         <div className="flex-1 sm:mx-0 mx-10">
           <h2 className="text-4xl mb-2 font-medium">{currentProduct.title}</h2>
           <p className="text-2xl text-slate-400 font-medium mb-4">

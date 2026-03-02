@@ -244,6 +244,7 @@ function Shop() {
               <FormControl fullWidth className="bg-white">
                 <InputLabel
                   sx={{
+                    fontFamily: "Poppins, sans-serif",
                     "&.Mui-focused": {
                       color: "grey !important",
                     },
