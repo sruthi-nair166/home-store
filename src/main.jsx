@@ -13,6 +13,8 @@ import Cart from "./components/Cart";
 import Wishlist from "./components/Wishlist";
 import Product from "./components/Product";
 import Comparison from "./components/Comparison";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,15 @@ const router = createBrowserRouter([
       },
       { path: "comparison", element: <Comparison /> },
     ],
+  },
+
+  {
+    path: "/signin",
+    element: <SignIn />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
   },
 ]);
 

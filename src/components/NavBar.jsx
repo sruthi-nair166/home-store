@@ -81,6 +81,13 @@ function NavBar() {
               <AiOutlineShoppingCart className="text-xl hover:text-dark" />
             </Link>
           </Tooltip>
+
+          <Link
+            to="/signin"
+            className="tracking-widest font-medium hover:text-dark"
+          >
+            LOGIN
+          </Link>
         </div>
 
         <button
@@ -136,6 +143,13 @@ function NavBar() {
               </li>
 
               <div className="flex justify-end gap-6 py-6 pe-12 border-t">
+                <Link
+                  to="/signin"
+                  className="tracking-widest font-medium hover:text-dark"
+                >
+                  LOGIN
+                </Link>
+
                 <Link to="/wishlist" onClick={() => setIsOpen(false)}>
                   <GoHeart className="text-xl" />
                 </Link>
